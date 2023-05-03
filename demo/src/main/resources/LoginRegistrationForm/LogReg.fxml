@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -34,11 +35,14 @@
                   <TextField fx:id="li_username" layoutX="119.0" layoutY="218.0" prefHeight="35.0" prefWidth="216.0" promptText="Enter your username" />
                   <PasswordField fx:id="li_password" layoutX="119.0" layoutY="282.0" prefHeight="35.0" prefWidth="216.0" promptText="Enter your password" />
                   <Button fx:id="li_btn" layoutX="272.0" layoutY="348.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" text="Log In" />
+                  <FontAwesomeIcon glyphName="USER" layoutX="164.0" layoutY="151.0" size="9em" />
+                  <FontAwesomeIcon glyphName="USER" layoutX="81.0" layoutY="247.0" size="2.5em" />
+                  <FontAwesomeIcon glyphName="LOCK" layoutX="83.0" layoutY="312.0" size="2.5em" />
                </children>
             </AnchorPane>
          </right>
       </BorderPane>
-      <BorderPane fx:id="signupform" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+      <BorderPane fx:id="signupform" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
          <left>
             <AnchorPane prefHeight="470.0" prefWidth="398.0" styleClass="other-form" stylesheets="@style.css" BorderPane.alignment="CENTER">
                <children>
@@ -59,37 +63,38 @@
          <center>
             <AnchorPane prefHeight="470.0" prefWidth="413.0" styleClass="white-form" stylesheets="@style.css" BorderPane.alignment="CENTER">
                <children>
-                  <PasswordField fx:id="su_password" layoutX="142.0" layoutY="285.0" prefHeight="35.0" prefWidth="216.0" promptText="Write a password" />
-                  <TextField fx:id="su_username" layoutX="142.0" layoutY="238.0" prefHeight="35.0" prefWidth="216.0" promptText="Write a username" />
-                  <Button fx:id="su_btn" layoutX="295.0" layoutY="351.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" text="Sign Up" />
-                  <TextField fx:id="su_email" layoutX="142.0" layoutY="191.0" prefHeight="35.0" prefWidth="216.0" promptText="Write your email" />
-                  <TextField fx:id="su_firstname" layoutX="142.0" layoutY="95.0" prefHeight="35.0" prefWidth="216.0" promptText="Write your first name" />
-                  <TextField fx:id="su_lastname" layoutX="142.0" layoutY="142.0" prefHeight="35.0" prefWidth="216.0" promptText="Write your last name" />
-                  <Label layoutX="56.0" layoutY="103.0" prefHeight="20.0" prefWidth="76.0" text="First name:">
+                  <PasswordField fx:id="su_password" layoutX="142.0" layoutY="329.0" prefHeight="35.0" prefWidth="216.0" promptText="Write a password" />
+                  <TextField fx:id="su_username" layoutX="142.0" layoutY="282.0" prefHeight="35.0" prefWidth="216.0" promptText="Write a username" />
+                  <Button fx:id="su_btn" layoutX="295.0" layoutY="395.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" text="Sign Up" />
+                  <TextField fx:id="su_email" layoutX="142.0" layoutY="235.0" prefHeight="35.0" prefWidth="216.0" promptText="Write your email" />
+                  <TextField fx:id="su_firstname" layoutX="142.0" layoutY="139.0" prefHeight="35.0" prefWidth="216.0" promptText="Write your first name" />
+                  <TextField fx:id="su_lastname" layoutX="142.0" layoutY="186.0" prefHeight="35.0" prefWidth="216.0" promptText="Write your last name" />
+                  <Label layoutX="56.0" layoutY="147.0" prefHeight="20.0" prefWidth="76.0" text="First name:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="56.0" layoutY="150.0" prefHeight="20.0" prefWidth="76.0" text="Last name:">
+                  <Label layoutX="56.0" layoutY="194.0" prefHeight="20.0" prefWidth="76.0" text="Last name:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="56.0" layoutY="199.0" prefHeight="20.0" prefWidth="76.0" text="Email:">
+                  <Label layoutX="56.0" layoutY="243.0" prefHeight="20.0" prefWidth="76.0" text="Email:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="56.0" layoutY="246.0" prefHeight="20.0" prefWidth="76.0" text="Username:">
+                  <Label layoutX="56.0" layoutY="290.0" prefHeight="20.0" prefWidth="76.0" text="Username:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="56.0" layoutY="293.0" prefHeight="20.0" prefWidth="76.0" text="Password:">
+                  <Label layoutX="56.0" layoutY="337.0" prefHeight="20.0" prefWidth="76.0" text="Password:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <FontAwesomeIcon glyphName="USER_PLUS" layoutX="165.0" layoutY="92.0" size="6em" />
                </children>
             </AnchorPane>
          </center>
