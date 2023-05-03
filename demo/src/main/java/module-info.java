@@ -3,6 +3,7 @@ module com.example.demo {
     requires javafx.fxml;
 
 
-    opens com.example.demo to javafx.fxml;
-    exports com.example.demo;
+
+    exports LoginRegistrationForm to javafx.graphics;
+    opens LoginRegistrationForm to javafx.fxml;
 }
