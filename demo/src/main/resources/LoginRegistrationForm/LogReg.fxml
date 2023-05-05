@@ -14,7 +14,7 @@
    <children>
       <BorderPane fx:id="loginform" prefHeight="200.0" prefWidth="200.0">
          <left>
-            <AnchorPane prefHeight="470.0" prefWidth="398.0" styleClass="other-form" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="470.0" prefWidth="398.0" styleClass="other-form" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="li_createaccbtn" layoutX="129.0" layoutY="393.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="140.0" text="Create Account" />
                   <Label layoutX="124.0" layoutY="360.0" text="Are you a new member?" textFill="WHITE">
@@ -30,7 +30,7 @@
                </children></AnchorPane>
          </left>
          <right>
-            <AnchorPane prefHeight="470.0" prefWidth="413.0" styleClass="white-form" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="470.0" prefWidth="413.0" styleClass="white-form" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="li_username" layoutX="119.0" layoutY="218.0" prefHeight="35.0" prefWidth="216.0" promptText="Enter your username" />
                   <PasswordField fx:id="li_password" layoutX="119.0" layoutY="282.0" prefHeight="35.0" prefWidth="216.0" promptText="Enter your password" />
@@ -44,7 +44,7 @@
       </BorderPane>
       <BorderPane fx:id="signupform" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
          <left>
-            <AnchorPane prefHeight="470.0" prefWidth="398.0" styleClass="other-form" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="470.0" prefWidth="398.0" styleClass="other-form" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="su_logintobtn" layoutX="129.0" layoutY="393.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="140.0" text="Log in to the system" />
                   <Label layoutX="121.0" layoutY="362.0" text="Do you have an account?" textFill="WHITE">
@@ -61,7 +61,7 @@
             </AnchorPane>
          </left>
          <center>
-            <AnchorPane prefHeight="470.0" prefWidth="413.0" styleClass="white-form" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="470.0" prefWidth="413.0" styleClass="white-form" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
                   <PasswordField fx:id="su_password" layoutX="142.0" layoutY="329.0" prefHeight="35.0" prefWidth="216.0" promptText="Write a password" />
                   <TextField fx:id="su_username" layoutX="142.0" layoutY="282.0" prefHeight="35.0" prefWidth="216.0" promptText="Write a username" />

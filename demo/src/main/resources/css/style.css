@@ -1,0 +1,16 @@
+.white-form{
+    -fx-background-color: #fff;
+}
+
+.other-form{
+    -fx-background-color: linear-gradient(#1d40d8, #0075ff);
+}
+
+.employeebtns{
+    -fx-background-color: #2F80ED;
+    //-fx-border-color: #0575E6;
+}
+
+.employeebtns:hover{
+    -fx-background-color: #A7BFE8;
+}
