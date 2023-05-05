@@ -3,13 +3,12 @@ package EmployeeTab;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class tab1controller implements Initializable {
@@ -17,7 +16,16 @@ public class tab1controller implements Initializable {
     private Button addnewBtn;
 
     @FXML
+    private MenuItem closeItem;
+
+    @FXML
+    private Menu fileMenu;
+
+    @FXML
     private Button homeBtn;
+
+    @FXML
+    private Button logoutBtn;
 
     @FXML
     private Button pagatBtn;
@@ -28,24 +36,31 @@ public class tab1controller implements Initializable {
     @FXML
     private AnchorPane punetoretPage;
 
-    @FXML
-    private MenuItem closeItem;
-
-    @FXML
-    private MenuBar menuBar;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        TODO
     }
 
+    Stage stage;
+
     @FXML
-    private void closeWindow(ActionEvent event) {
+    public void closeWindow(ActionEvent event) {
         if (event.getSource() == closeItem) {
-            Stage stage = (Stage) menuBar.getScene().getWindow();
+            stage = (Stage) punetoretPage.getScene().getWindow();
             stage.close();
         }
     }
 
+    public void logOut(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("You are about to log out!");
+        alert.setContentText("Do you want to save before exiting?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            stage = (Stage) punetoretPage.getScene().getWindow();
+            stage.close();
+        }
+    }
 }

@@ -92,6 +92,11 @@
                         <Insets />
                      </opaqueInsets>
                   </MenuBar>
+                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logOut" prefWidth="80.0" text="Log Out">
+                     <HBox.margin>
+                        <Insets left="800.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
                </children></HBox>
             </top>
             <center>
