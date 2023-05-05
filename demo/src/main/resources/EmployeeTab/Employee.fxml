@@ -55,9 +55,9 @@
                <children>
                   <MenuBar fx:id="menuBar">
                     <menus>
-                      <Menu mnemonicParsing="false" text="File">
+                      <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                         <items>
-                          <MenuItem fx:id="closeItem" mnemonicParsing="false" text="Close">
+                          <MenuItem fx:id="closeItem" mnemonicParsing="false" onAction="#closeWindow" text="Close">
                                  <accelerator>
                                     <KeyCodeCombination alt="UP" code="C" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
