@@ -64,9 +64,9 @@
                               </MenuItem>
                         </items>
                       </Menu>
-                      <Menu mnemonicParsing="false" text="Edit">
+                      <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
                         <items>
-                              <MenuItem mnemonicParsing="false" text="Add new">
+                              <MenuItem fx:id="addnewItem" mnemonicParsing="false" onAction="#openAddnew" text="Add new">
                                  <accelerator>
                                     <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
@@ -134,7 +134,7 @@
                 </AnchorPane>
             </center>
         </BorderPane>
-      <BorderPane fx:id="homePage" layoutX="10.0" layoutY="10.0" prefHeight="743.6" prefWidth="1033.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="homePage" layoutX="10.0" layoutY="10.0" prefHeight="743.6" prefWidth="1033.2" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <VBox prefHeight="519.0" prefWidth="221.0" spacing="10.0" style="-fx-background-color: #2262C2; -fx-background-radius: 0 60 0 0;" BorderPane.alignment="CENTER">
                <children>
@@ -176,20 +176,6 @@
                               <MenuItem fx:id="closeItem1" mnemonicParsing="false" onAction="#closeWindow" text="Close">
                                  <accelerator>
                                     <KeyCodeCombination alt="UP" code="C" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                                 </accelerator>
-                              </MenuItem>
-                           </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Add new">
-                                 <accelerator>
-                                    <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                                 </accelerator>
-                              </MenuItem>
-                              <MenuItem mnemonicParsing="false" text="Delete">
-                                 <accelerator>
-                                    <KeyCodeCombination alt="UP" code="D" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
                            </items>
