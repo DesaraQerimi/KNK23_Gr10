@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -19,23 +21,52 @@ public class tab1controller implements Initializable {
     private MenuItem closeItem;
 
     @FXML
+    private MenuItem closeItem1;
+
+    @FXML
+    private Button employeesEBtn;
+
+    @FXML
+    private Button employeesHBtn;
+
+    @FXML
+    private BorderPane employeesPage;
+
+    @FXML
+    private Button employeesWBtn;
+
+    @FXML
     private Menu fileMenu;
 
     @FXML
-    private Button homeBtn;
+    private Menu fileMenu1;
+
+    @FXML
+    private Button homeEBtn;
+
+    @FXML
+    private Button homeHBtn;
+
+    @FXML
+    private BorderPane homePage;
+
+    @FXML
+    private Button homeWBtn;
 
     @FXML
     private Button logoutBtn;
 
     @FXML
-    private Button pagatBtn;
+    private Button logoutBtn1;
 
     @FXML
-    private Button punetoretBtn;
+    private MenuBar menuBar;
+
+    @FXML
+    private MenuBar menuBar1;
 
     @FXML
     private AnchorPane punetoretPage;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,6 +92,17 @@ public class tab1controller implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             stage = (Stage) punetoretPage.getScene().getWindow();
             stage.close();
+        }
+    }
+
+    @FXML
+    public void switchPages(ActionEvent event){
+        if(event.getSource() == homeHBtn || event.getSource() == employeesHBtn){
+            homePage.setVisible(true);
+            employeesPage.setVisible(false);
+        } else if(event.getSource() == homeEBtn || event.getSource() == employeesEBtn){
+            homePage.setVisible(false);
+            employeesPage.setVisible(true);
         }
     }
 }

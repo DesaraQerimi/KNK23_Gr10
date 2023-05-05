@@ -19,29 +19,29 @@
 <AnchorPane fx:id="punetoretPage" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeTab.tab1controller">
 
     <children>
-        <BorderPane prefHeight="733.0" prefWidth="1023.0">
+        <BorderPane fx:id="employeesPage" prefHeight="733.0" prefWidth="1023.0">
             <left>
                 <VBox prefHeight="519.0" prefWidth="221.0" spacing="10.0" style="-fx-background-color: #2262C2; -fx-background-radius: 0 60 0 0;" BorderPane.alignment="CENTER">
                     <children>
                         <Pane prefHeight="105.0" prefWidth="221.0" />
-                        <Button fx:id="homeBtn" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="22.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
+                        <Button fx:id="employeesHBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#switchPages" prefHeight="22.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
                             <VBox.margin>
                                 <Insets left="20.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="punetoretBtn" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Punetoret" textFill="WHITE">
+                        <Button fx:id="employeesEBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#switchPages" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Employees" textFill="WHITE">
                             <VBox.margin>
                                 <Insets left="20.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="pagatBtn" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Pagat" textFill="WHITE">
+                        <Button fx:id="employeesWBtn" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Wages" textFill="WHITE">
                             <VBox.margin>
                                 <Insets left="20.0" />
                             </VBox.margin>
                         </Button>
                         <Pane prefHeight="290.0" prefWidth="221.0">
                             <children>
-                                <Label layoutX="14.0" layoutY="171.0" text="Kompania" textFill="WHITE">
+                                <Label layoutX="14.0" layoutY="171.0" text="Company" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Black" size="21.0" />
                            </font></Label>
@@ -134,5 +134,91 @@
                 </AnchorPane>
             </center>
         </BorderPane>
+      <BorderPane fx:id="homePage" layoutX="10.0" layoutY="10.0" prefHeight="743.6" prefWidth="1033.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox prefHeight="519.0" prefWidth="221.0" spacing="10.0" style="-fx-background-color: #2262C2; -fx-background-radius: 0 60 0 0;" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane prefHeight="105.0" prefWidth="221.0" />
+                  <Button fx:id="homeHBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#switchPages" prefHeight="22.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="homeEBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#switchPages" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Employees" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="homeWBtn" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Wages" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Pane prefHeight="290.0" prefWidth="221.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="171.0" text="Company" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Black" size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </left>
+         <top>
+            <HBox prefHeight="71.0" prefWidth="1012.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar fx:id="menuBar1">
+                     <menus>
+                        <Menu fx:id="fileMenu1" mnemonicParsing="false" text="File">
+                           <items>
+                              <MenuItem fx:id="closeItem1" mnemonicParsing="false" onAction="#closeWindow" text="Close">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="C" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Add new">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false" text="Delete">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="D" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="About">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="H" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                           </items>
+                        </Menu>
+                     </menus>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </MenuBar>
+                  <Button fx:id="logoutBtn1" mnemonicParsing="false" onAction="#logOut" prefWidth="80.0" text="Log Out">
+                     <HBox.margin>
+                        <Insets left="800.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
     </children>
 </AnchorPane>

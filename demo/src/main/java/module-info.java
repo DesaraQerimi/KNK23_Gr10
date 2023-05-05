@@ -8,6 +8,4 @@ module com.example.demo {
     opens LoginRegistrationForm to javafx.fxml;
     exports EmployeeTab to javafx.graphics;
     opens EmployeeTab to javafx.fxml;
-    exports HomeTab to javafx.graphics;
-    opens HomeTab to javafx.fxml;
 }
