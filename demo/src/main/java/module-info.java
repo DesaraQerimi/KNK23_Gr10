@@ -6,4 +6,6 @@ module com.example.demo {
 
     exports LoginRegistrationForm to javafx.graphics;
     opens LoginRegistrationForm to javafx.fxml;
+    exports EmployeeTab to javafx.graphics;
+    opens EmployeeTab to javafx.fxml;
 }
