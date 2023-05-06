@@ -1,15 +1,23 @@
-package LoginRegistrationForm;
+package Controllers;
 
+import Services.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class form1controller implements Initializable {
@@ -66,5 +74,28 @@ public class form1controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        TODO
+    }
+
+    @FXML
+    private void handleLoginButtonAction(ActionEvent event) throws IOException {
+        String username = li_username.getText();
+        String password = li_password.getText();
+
+        if(username.equals("admin") && password.equals("test")){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EmployeeTab/Employee.fxml"));
+            Parent root = loader.load();
+            Object controller = loader.getController();
+
+            // Create a new scene with the Employee.fxml file
+            Scene scene = new Scene(root);
+
+            // Get the current stage and set the scene to the Employee.fxml file
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+
+        } else {
+            System.out.println("Incorrect username or password");
+        }
     }
 }

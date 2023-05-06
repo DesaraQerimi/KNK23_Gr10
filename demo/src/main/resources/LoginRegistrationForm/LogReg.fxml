@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginRegistrationForm.form1controller">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.form1controller">
    <children>
 <!--      LOGIN-->
       <BorderPane fx:id="loginform" prefHeight="200.0" prefWidth="200.0">
@@ -34,7 +34,7 @@
                <children>
                   <TextField fx:id="li_username" layoutX="119.0" layoutY="218.0" prefHeight="35.0" prefWidth="216.0" promptText="Enter your username" />
                   <PasswordField fx:id="li_password" layoutX="119.0" layoutY="282.0" prefHeight="35.0" prefWidth="216.0" promptText="Enter your password" />
-                  <Button fx:id="li_btn" layoutX="272.0" layoutY="348.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" text="Log In" />
+                  <Button fx:id="li_btn" layoutX="272.0" layoutY="348.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" text="Log In"  onAction="#handleLoginButtonAction"/>
                </children>
             </AnchorPane>
          </right>

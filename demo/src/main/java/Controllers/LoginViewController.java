@@ -67,7 +67,6 @@ public class LoginViewController implements Initializable {
 
 
 
-
             // Create a new scene with the Employee.fxml file
             Scene scene = new Scene(root);
 
