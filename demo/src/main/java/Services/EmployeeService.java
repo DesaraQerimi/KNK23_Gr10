@@ -8,9 +8,9 @@ import java.util.List;
 public class EmployeeService {
 
     private EmployeeRepository employeeRepository;
-    private final String DB_URL = "jdbc:mysql://localhost:3306/hrpr";
+    private final String DB_URL = "jdbc:mysql://localhost:3306/knk";
     private final String DB_USER = "root";
-    private final String DB_PASSWORD = "11111111";
+    private final String DB_PASSWORD = "";
 
     public EmployeeService() throws SQLException {
         this.employeeRepository = new EmployeeRepository();
