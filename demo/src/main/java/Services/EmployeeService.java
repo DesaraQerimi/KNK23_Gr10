@@ -18,7 +18,7 @@ public class EmployeeService {
         return EmployeeRepository.getAllEmployees();
     }
 
-    public void addEmployee(Employee employee) throws SQLException {
+    public static void addEmployee(Employee employee) throws SQLException {
         EmployeeRepository.addEmployee(employee);
     }
 
