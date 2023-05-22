@@ -22,7 +22,19 @@ public class Employee {
             this.phone = phone;
         }
 
-        // Getters and setters for all fields
+    public Employee(int id, String firstName, String lastName, String department, String email, String phone, Roli roli, Date start_date, Date end_date) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.department = department;
+        this.email = email;
+        this.phone = phone;
+        this.roli = roli;
+        this.start_date = start_date;
+        this.end_date = end_date;
+    }
+
+    // Getters and setters for all fields
 
         public int getId() {
             return id;
