@@ -1,5 +1,6 @@
 package Repositories;
 
+import Models.Roli;
 import Services.ConnectionUtil;
 import Models.Employee;
 
@@ -10,65 +11,48 @@ import java.util.List;
 
 public class EmployeeRepository {
 
-    private Connection conn;
+    private static Connection conn;
 
     public EmployeeRepository() throws SQLException {
         this.conn = ConnectionUtil.getConnection();
     }
 
-    public Employee login(String username, String password) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?");
-        stmt.setString(1, username);
-        stmt.setString(2, password);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            int id = rs.getInt("id");
-            String firstName = rs.getString("first_name");
-            String lastName = rs.getString("last_name");
-            String department = rs.getString("department");
-            String email = rs.getString("email");
-            String phone = rs.getString("phone");
-            return new Employee(id, firstName, lastName, department, email, phone);
-        } else {
-            return null;
-        }
-    }
-
-    public List<Employee> getAllEmployees() throws SQLException {
+    public static List<Employee> getAllEmployees() throws SQLException {
         List<Employee> employees = new ArrayList<>();
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM employees");
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             int id = rs.getInt("id");
-            String firstName = rs.getString("first_name");
-            String lastName = rs.getString("last_name");
+            String firstName = rs.getString("name");
+            String lastName = rs.getString("lastname");
             String department = rs.getString("department");
             String email = rs.getString("email");
             String phone = rs.getString("phone");
-            String username = rs.getString("username");
-            String password = rs.getString("password");
+            Roli roli = (Roli) rs.getObject("roli"); //TODO
+            Date start_date = rs.getDate("start_date");
+            Date end_date = rs.getDate("end_date");
             Employee employee = new Employee(id, firstName, lastName, department, email, phone);
             employees.add(employee);
         }
         return employees;
     }
 
-    public Employee addEmployee(Employee employee) throws SQLException {
-        String sql = "INSERT INTO employees (first_name, last_name, department, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static Employee addEmployee(Employee employee) throws SQLException {
+        String sql = "INSERT INTO employees (name, lastname, department, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Connection connection = ConnectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, employee.getName());
-        statement.setString(2, employee.getLastname());
+        statement.setString(1, employee.getFirstName());
+        statement.setString(2, employee.getLastName());
         statement.setString(3, employee.getDepartment());
         statement.setString(4, employee.getEmail());
         statement.setString(5, employee.getPhone());
         statement.executeUpdate();
 
-        return EmployeeRepository.getByName(employee.getName());
+        return EmployeeRepository.getByName(employee.getFirstName());
     }
 
     public void updateEmployee(Employee employee) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("UPDATE employees SET first_name = ?, last_name = ?, department = ?, email = ?, phone = ?, username = ?, password = ? WHERE id = ?");
+        PreparedStatement stmt = this.conn.prepareStatement("UPDATE employees SET name = ?, lastname = ?, department = ?, email = ?, phone = ? WHERE id = ?");
         stmt.setString(1, employee.getFirstName());
         stmt.setString(2, employee.getLastName());
         stmt.setString(3, employee.getDepartment());
