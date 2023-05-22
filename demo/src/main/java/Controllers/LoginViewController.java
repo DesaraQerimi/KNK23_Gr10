@@ -61,7 +61,7 @@ public class LoginViewController implements Initializable {
             }
 
             // Load the Employee.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EmployeeTab/Employee.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Controllers/Employee.fxml"));
             Parent root = loader.load();
             Object controller = loader.getController();
 

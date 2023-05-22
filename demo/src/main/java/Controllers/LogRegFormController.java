@@ -89,7 +89,7 @@ public class LogRegFormController implements Initializable {
 
             if (rs.next()) {
                 // User logged in successfully
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/EmployeeTab/Employee.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Controllers/Employee.fxml"));
                 Parent root = loader.load();
                 Object controller = loader.getController();
                 Scene scene = new Scene(root);

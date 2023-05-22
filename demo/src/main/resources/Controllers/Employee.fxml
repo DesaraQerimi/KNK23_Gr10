@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="punetoretPage" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmpTabController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmpTabController">
 
     <children>
         <BorderPane fx:id="employeesPage" prefHeight="733.0" prefWidth="1023.0">
@@ -29,7 +29,7 @@
                                 <Insets left="20.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="employeesSBtn" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Salaries" textFill="WHITE">
+                        <Button fx:id="employeesSBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#changeWindow" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Salaries" textFill="WHITE">
                             <VBox.margin>
                                 <Insets left="20.0" />
                             </VBox.margin>
@@ -61,14 +61,9 @@
                       </Menu>
                       <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
                         <items>
-                              <MenuItem fx:id="addnewItem" mnemonicParsing="false" text="Add new">
+                              <MenuItem fx:id="addnewItem" mnemonicParsing="false" onAction="#openAddNew" text="Add new">
                                  <accelerator>
                                     <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                                 </accelerator>
-                              </MenuItem>
-                          <MenuItem mnemonicParsing="false" text="Delete">
-                                 <accelerator>
-                                    <KeyCodeCombination alt="UP" code="D" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
                         </items>
@@ -87,7 +82,7 @@
                         <Insets />
                      </opaqueInsets>
                   </MenuBar>
-                  <Button fx:id="logoutBtn" mnemonicParsing="false" prefWidth="80.0" text="Log Out">
+                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logOut" prefWidth="80.0" text="Log Out">
                      <HBox.margin>
                         <Insets left="800.0" top="10.0" />
                      </HBox.margin>

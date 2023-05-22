@@ -16,7 +16,7 @@
          <left>
             <AnchorPane prefHeight="470.0" prefWidth="398.0" styleClass="other-form" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="li_createaccbtn" layoutX="129.0" layoutY="393.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="140.0" text="Create Account" />
+                  <Button fx:id="li_createaccbtn" layoutX="129.0" layoutY="393.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" text="Create Account" />
                   <Label layoutX="124.0" layoutY="360.0" text="Are you a new member?" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
@@ -51,7 +51,7 @@
          <left>
             <AnchorPane prefHeight="470.0" prefWidth="398.0" styleClass="other-form" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="su_logintobtn" layoutX="129.0" layoutY="393.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="140.0" text="Log in to the system" />
+                  <Button fx:id="su_logintobtn" layoutX="129.0" layoutY="393.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" text="Log in to the system" />
                   <Label layoutX="121.0" layoutY="362.0" text="Do you have an account?" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
