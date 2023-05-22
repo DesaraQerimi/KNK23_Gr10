@@ -32,6 +32,11 @@
          <right>
             <AnchorPane prefHeight="470.0" prefWidth="413.0" styleClass="white-form" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
+                  <Label fx:id="li_errorLabel" layoutX="119.0" layoutY="192.0" textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                   <TextField fx:id="li_username" layoutX="119.0" layoutY="218.0" prefHeight="35.0" prefWidth="216.0" promptText="Enter your username" />
                   <PasswordField fx:id="li_password" layoutX="119.0" layoutY="282.0" prefHeight="35.0" prefWidth="216.0" promptText="Enter your password" />
                   <Button fx:id="li_btn" layoutX="272.0" layoutY="348.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="62.0" text="Log In"  onAction="#handleLoginButtonAction"/>

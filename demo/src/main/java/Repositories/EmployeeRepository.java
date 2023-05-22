@@ -16,7 +16,7 @@ public class EmployeeRepository {
     }
 
     public Employee login(String username, String password) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM employees WHERE username = ? AND password = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?");
         stmt.setString(1, username);
         stmt.setString(2, password);
         ResultSet rs = stmt.executeQuery();

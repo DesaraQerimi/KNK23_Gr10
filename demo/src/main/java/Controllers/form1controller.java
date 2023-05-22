@@ -1,5 +1,10 @@
 package Controllers;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import Services.ConnectionUtil;
 import Services.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,15 +14,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class form1controller implements Initializable {
@@ -61,11 +69,15 @@ public class form1controller implements Initializable {
     private TextField su_username;
 
     @FXML
-    public void switchForm(ActionEvent event){
-        if(event.getSource() == su_logintobtn){
+    private Label li_errorLabel;
+
+
+    @FXML
+    public void switchForm(ActionEvent event) {
+        if (event.getSource() == su_logintobtn) {
             loginform.setVisible(true);
             signupform.setVisible(false);
-        } else if(event.getSource() == li_createaccbtn){
+        } else if (event.getSource() == li_createaccbtn) {
             loginform.setVisible(false);
             signupform.setVisible(true);
         }
@@ -80,22 +92,49 @@ public class form1controller implements Initializable {
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
         String username = li_username.getText();
         String password = li_password.getText();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-        if(username.equals("admin") && password.equals("test")){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EmployeeTab/Employee.fxml"));
-            Parent root = loader.load();
-            Object controller = loader.getController();
+        try {
+            conn = ConnectionUtil.getConnection();
+            stmt = conn.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?");
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            rs = stmt.executeQuery();
 
-            // Create a new scene with the Employee.fxml file
-            Scene scene = new Scene(root);
+            if (rs.next()) {
+                // User logged in successfully
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/EmployeeTab/Employee.fxml"));
+                Parent root = loader.load();
+                Object controller = loader.getController();
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                // Incorrect username or password
+                li_errorLabel.setText("Incorrect username or password");
+                li_errorLabel.setVisible(true);
+            }
 
-            // Get the current stage and set the scene to the Employee.fxml file
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-
-        } else {
-            System.out.println("Incorrect username or password");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 }
