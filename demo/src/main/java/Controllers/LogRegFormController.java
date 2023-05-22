@@ -1,11 +1,8 @@
 package Controllers;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import Services.ConnectionUtil;
-import Services.Employee;
 import Services.ConnectionUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,15 +18,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class form1controller implements Initializable {
+public class LogRegFormController implements Initializable {
     @FXML
     private Button li_btn;
 
@@ -72,17 +66,6 @@ public class form1controller implements Initializable {
     @FXML
     private Label li_errorLabel;
 
-
-    @FXML
-    public void switchForm(ActionEvent event) {
-        if (event.getSource() == su_logintobtn) {
-            loginform.setVisible(true);
-            signupform.setVisible(false);
-        } else if (event.getSource() == li_createaccbtn) {
-            loginform.setVisible(false);
-            signupform.setVisible(true);
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
