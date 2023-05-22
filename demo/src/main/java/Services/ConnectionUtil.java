@@ -9,9 +9,9 @@ public class ConnectionUtil {
 
         public static Connection getConnection() throws SQLException {
             if (connection == null || connection.isClosed()) {
-                String url = "jdbc:mysql://localhost:3306/knk2023";
+                String url = "jdbc:mysql://127.0.0.1:4306/knk";
                 String user = "root";
-                String password = "11111111";
+                String password = "";
                 connection = DriverManager.getConnection(url, user, password);
             }
             return connection;

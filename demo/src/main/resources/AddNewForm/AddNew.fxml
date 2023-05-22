@@ -7,11 +7,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="addNew" prefHeight="368.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeTab.tab1controller">
+<AnchorPane fx:id="addNew" prefHeight="368.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddNewFormController">
    <children>
       <Pane prefHeight="65.0" prefWidth="348.0" style="-fx-background-color: #52438F;">
          <children>
-            <Button fx:id="addnewClose" layoutX="310.0" layoutY="14.0" mnemonicParsing="false" onAction="#closeAddnew" prefHeight="25.0" prefWidth="23.0" text="X" />
             <Label layoutX="25.0" layoutY="13.0" prefHeight="27.0" prefWidth="192.0" text="Add a new employee" textFill="#ffdddd">
                <font>
                   <Font name="System Bold" size="18.0" />
@@ -20,7 +19,7 @@
          </children>
       </Pane>
       <TextField fx:id="addnewDepartment" layoutX="71.0" layoutY="159.0" prefHeight="25.0" prefWidth="207.0" promptText="Department" />
-      <Button fx:id="addnewEmployee" layoutX="71.0" layoutY="294.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="207.0" text="Add employee" />
+      <Button layoutX="71.0" layoutY="294.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="207.0" text="Add employee" />
       <TextField fx:id="addnewPhone" layoutX="71.0" layoutY="241.0" prefHeight="25.0" prefWidth="207.0" promptText="Phone" />
       <TextField fx:id="addnewEmail" layoutX="71.0" layoutY="201.0" prefHeight="25.0" prefWidth="207.0" promptText="Email" />
       <TextField fx:id="addnewSurname" layoutX="71.0" layoutY="122.0" prefHeight="25.0" prefWidth="207.0" promptText="Surname" />
