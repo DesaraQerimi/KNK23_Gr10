@@ -1,6 +1,7 @@
 package Services;
 
 import Repositories.EmployeeRepository;
+import Models.Employee;
 
 import java.sql.*;
 import java.util.List;
@@ -17,11 +18,11 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployees() throws SQLException {
-        return employeeRepository.getAllEmployees();
+        return EmployeeRepository.getAllEmployees();
     }
 
     public void addEmployee(Employee employee) throws SQLException {
-        employeeRepository.addEmployee(employee);
+        EmployeeRepository.addEmployee(employee);
     }
 
     public void updateEmployee(Employee employee) throws SQLException {
