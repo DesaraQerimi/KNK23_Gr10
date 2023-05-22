@@ -13,8 +13,17 @@ public class Employee {
         private Date start_date;
         private Date end_date;
 
-        public Employee(int id, String firstName, String lastName, String department, String email, String phone) {
-            this.id = id;
+    public Employee(int id, String firstName, String lastName, String department, String email, String phone) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.department = department;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Employee(String firstName, String lastName, String department, String email, String phone) {
+
             this.firstName = firstName;
             this.lastName = lastName;
             this.department = department;
