@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepository implements EmployeeRepositoryInterface {
+public class EmployeeRepository {
 
     private Connection conn;
 
@@ -53,7 +53,7 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
         return employees;
     }
 
-    public Employee addEmployee(createEmployeeDto employee) throws SQLException {
+    public Employee addEmployee(Employee employee) throws SQLException {
         String sql = "INSERT INTO employees (first_name, last_name, department, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Connection connection = ConnectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
