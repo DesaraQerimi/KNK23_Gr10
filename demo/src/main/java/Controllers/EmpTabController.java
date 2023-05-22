@@ -83,7 +83,7 @@ public class EmpTabController implements Initializable {
     public void logOut(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("You are about to log out!");
-        alert.setContentText("Do you want to save before exiting?");
+//        alert.setContentText("Do you want to save before exiting?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
