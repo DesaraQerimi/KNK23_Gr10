@@ -1,9 +1,8 @@
 package Repositories;
 
-import Models.dto.createEmployeeDto;
 import Services.ConnectionUtil;
 import Models.Employee;
-import Repositories.interfaces.EmployeeRepositoryInterface;
+
 
 import java.sql.*;
 import java.util.ArrayList;
