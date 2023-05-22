@@ -2,6 +2,7 @@ package Services;
 
 import Repositories.EmployeeRepository;
 import Models.Employee;
+import Services.ConnectionUtil;
 
 import java.sql.*;
 import java.util.List;
@@ -9,10 +10,6 @@ import java.util.List;
 public class EmployeeService {
 
     private EmployeeRepository employeeRepository;
-    private final String DB_URL = "jdbc:mysql://localhost:3306/knk";
-    private final String DB_USER = "root";
-    private final String DB_PASSWORD = "";
-
     public EmployeeService() throws SQLException {
         this.employeeRepository = new EmployeeRepository();
     }
@@ -40,7 +37,6 @@ public class EmployeeService {
         Employee employee = null;
 
         try {
-            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             String query = "SELECT * FROM employees WHERE id = ?";
             stmt = conn.prepareStatement(query);
             stmt.setInt(1, id);
@@ -79,7 +75,6 @@ public class EmployeeService {
         Employee employee = null;
 
         try {
-            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             String sql = "SELECT * FROM employees WHERE username = ? AND password = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
