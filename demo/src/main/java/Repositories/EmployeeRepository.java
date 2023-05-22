@@ -1,7 +1,8 @@
 package Repositories;
 
 import Services.ConnectionUtil;
-import Services.Employee;
+import Models.Employee;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,14 +53,18 @@ public class EmployeeRepository {
         return employees;
     }
 
-    public void addEmployee(Employee employee) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO employees (first_name, last_name, department, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        stmt.setString(1, employee.getFirstName());
-        stmt.setString(2, employee.getLastName());
-        stmt.setString(3, employee.getDepartment());
-        stmt.setString(4, employee.getEmail());
-        stmt.setString(5, employee.getPhone());
-        stmt.executeUpdate();
+    public Employee addEmployee(Employee employee) throws SQLException {
+        String sql = "INSERT INTO employees (first_name, last_name, department, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        Connection connection = ConnectionUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, employee.getName());
+        statement.setString(2, employee.getLastname());
+        statement.setString(3, employee.getDepartment());
+        statement.setString(4, employee.getEmail());
+        statement.setString(5, employee.getPhone());
+        statement.executeUpdate();
+
+        return EmployeeRepository.getByName(employee.getName());
     }
 
     public void updateEmployee(Employee employee) throws SQLException {
@@ -78,4 +83,28 @@ public class EmployeeRepository {
         stmt.setInt(1, id);
         stmt.executeUpdate();
     }
-}
+
+    public static Employee getByName(String name) throws SQLException{
+        String sql = "SELECT * FROM employees WHERE name = ?";
+
+        try (Connection connection = ConnectionUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String lastname = resultSet.getString("lastname");
+                String department = resultSet.getString("department");
+                String email = resultSet.getString("email");
+                String phone = resultSet.getString("phone");
+
+                return new Employee(id, name, lastname, department, email, phone);
+            } else {
+                return null;
+            }
+        }
+    }
+
+
+    }
+

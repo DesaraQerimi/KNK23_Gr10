@@ -5,7 +5,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import Services.Employee;
+import Models.Admin;
+import Services.AdminService;
 import Services.EmployeeService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,10 +38,10 @@ public class LoginViewController implements Initializable {
     @FXML
     private BorderPane loginform;
 
-    private EmployeeService employeeService;
+    private AdminService adminService;
 
     public LoginViewController() throws SQLException {
-        employeeService = new EmployeeService();
+        adminService = new AdminService();
     }
 
     @Override
@@ -54,8 +55,8 @@ public class LoginViewController implements Initializable {
         String password = li_password.getText();
 
         try {
-            Employee employee = employeeService.login(username, password);
-            if (employee == null) {
+            Admin admin = adminService.login(username, password);
+            if (admin == null) {
                 System.out.println("Username or password is incorrect!");
                 return;
             }
