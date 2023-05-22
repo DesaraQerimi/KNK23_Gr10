@@ -1,8 +1,13 @@
 package Controllers;
 
+import Models.Employee;
 import Services.ConnectionUtil;
+import Services.EmployeeService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -28,6 +33,27 @@ public class AddNewFormController implements Initializable {
 
     @FXML
     private TextField addnewSurname;
+
+    @FXML
+    private Button handelAddBtn;
+
+    Alert alert = new Alert(Alert.AlertType.ERROR,"");
+    public void add(ActionEvent ae) throws Exception{
+        if(!addnewName.getText().isBlank() && !addnewSurname.getText().isBlank() &&
+                !addnewDepartment.getText().isBlank() && !addnewEmail.getText().isBlank() &&
+                !addnewPhone.getText().isBlank()){
+
+            Employee employee = new Employee(addnewName.getText(), addnewSurname.getText(),
+                    addnewDepartment.getText(), addnewEmail.getText(), addnewPhone.getText());
+
+            EmployeeService.addEmployee(employee);
+
+        }else{
+            alert.setContentText("Fill all the fields!");
+            alert.show();
+        }
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

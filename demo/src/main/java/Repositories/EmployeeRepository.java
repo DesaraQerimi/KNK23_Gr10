@@ -31,7 +31,7 @@ public class EmployeeRepository {
             Roli roli = (Roli) rs.getObject("roli"); //TODO
             Date start_date = rs.getDate("start_date");
             Date end_date = rs.getDate("end_date");
-            Employee employee = new Employee(id, firstName, lastName, department, email, phone);
+            Employee employee = new Employee(firstName, lastName, department, email, phone);
             employees.add(employee);
         }
         return employees;
