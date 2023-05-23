@@ -38,7 +38,7 @@ public class EmployeeRepository {
     }
 
     public static Employee addEmployee(Employee employee) throws SQLException {
-        String sql = "INSERT INTO employees (name, lastname, department, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO employees (name, lastname, department, email, phone) VALUES (?, ?, ?, ?, ?)";
         Connection connection = ConnectionUtil.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, employee.getFirstName());
