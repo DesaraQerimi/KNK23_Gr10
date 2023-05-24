@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -72,6 +74,7 @@ public class LogRegFormController implements Initializable {
 //        TODO
     }
 
+
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
         String username = li_username.getText();
@@ -80,12 +83,15 @@ public class LogRegFormController implements Initializable {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
+
         try {
             conn = ConnectionUtil.getConnection();
             stmt = conn.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?");
             stmt.setString(1, username);
             stmt.setString(2, password);
             rs = stmt.executeQuery();
+
+
 
             if (rs.next()) {
                 // User logged in successfully
@@ -117,6 +123,17 @@ public class LogRegFormController implements Initializable {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    public void login(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            try {
+                handleLoginButtonAction(new ActionEvent(keyEvent.getSource(), null)); // Pass keyEvent.getSource() instead of keyEvent
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
