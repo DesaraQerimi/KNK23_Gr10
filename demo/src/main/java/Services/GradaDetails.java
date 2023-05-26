@@ -5,34 +5,34 @@ import javafx.beans.property.StringProperty;
 
 public class GradaDetails {
     private final StringProperty grada;
-    private final StringProperty v_koeficient;
+    private final StringProperty koeficient;
 
     public GradaDetails(){
         grada = new SimpleStringProperty(this, "grada");
-        v_koeficient = new SimpleStringProperty(this, "v_koeficient");
+        koeficient = new SimpleStringProperty(this, "koeficient");
     }
 
     public String getGrada() {
         return grada.get();
     }
 
-    public String getV_koeficient() {
-        return v_koeficient.get();
+    public String getkoeficient() {
+        return koeficient.get();
     }
 
     public void setGrada(String value) {
         grada.set(value);
     }
 
-    public void setV_koeficient(String value) {
-        v_koeficient.set(value);
+    public void setkoeficient(String value) {
+        koeficient.set(value);
     }
 
     public StringProperty gradaProperty(){
         return grada;
     }
 
-    public StringProperty v_koeficientProperty(){
-        return v_koeficient;
+    public StringProperty koeficientProperty(){
+        return koeficient;
     }
 }

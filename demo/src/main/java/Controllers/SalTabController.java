@@ -76,7 +76,7 @@ public class SalTabController implements Initializable {
     private TableColumn<RoliDetails,String> colTitulli;
 
     @FXML
-    private TableColumn<GradaDetails, String> colV_koeficient;
+    private TableColumn<GradaDetails, String> colkoeficient;
 
     @FXML
     private TableView<GradaDetails> tableGrada;
@@ -152,17 +152,17 @@ public class SalTabController implements Initializable {
     int roli_id;
     @FXML
     void gradaUpFunc(ActionEvent event) {
-        String v_koeficient;
+        String koeficient;
 
         grada = Integer.parseInt(String.valueOf(tableGrada.getItems().get(myIndex).getGrada()));
         myIndex = tableGrada.getSelectionModel().getSelectedIndex();
 
-        v_koeficient = txtVKoef.getText();
+        koeficient = txtVKoef.getText();
         try
         {
             Connect();
-            pst = con.prepareStatement("update grada set v_koeficient = ? where grada = ? ");
-            pst.setString(1, v_koeficient);
+            pst = con.prepareStatement("update grada set koeficient = ? where grada = ? ");
+            pst.setString(1, koeficient);
             pst.setInt(2, grada);
             pst.executeUpdate();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -216,7 +216,7 @@ public class SalTabController implements Initializable {
     {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:4306/knk","root","");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/knk","root","");
         } catch (ClassNotFoundException ex) {
 
         } catch (SQLException ex) {
@@ -279,20 +279,20 @@ public class SalTabController implements Initializable {
         ObservableList<GradaDetails> grades = FXCollections.observableArrayList();
         try
         {
-            pst = con.prepareStatement("select grada, v_koeficient from grada");
+            pst = con.prepareStatement("select grada, koeficient from grada");
             ResultSet rs = pst.executeQuery();
             {
                 while (rs.next())
                 {
                     GradaDetails rd = new GradaDetails();
                     rd.setGrada(rs.getString("grada"));
-                    rd.setV_koeficient(rs.getString("v_koeficient"));
+                    rd.setkoeficient(rs.getString("koeficient"));
                     grades.add(rd);
                 }
             }
             tableGrada.setItems(grades);
             colGrada.setCellValueFactory(f -> f.getValue().gradaProperty());
-            colV_koeficient.setCellValueFactory(f -> f.getValue().v_koeficientProperty());
+            colkoeficient.setCellValueFactory(f -> f.getValue().koeficientProperty());
         }
 
         catch (SQLException ex)
@@ -309,7 +309,7 @@ public class SalTabController implements Initializable {
                     myIndex =  tableGrada.getSelectionModel().getSelectedIndex();
 
                     grada = Integer.parseInt(String.valueOf(tableGrada.getItems().get(myIndex).getGrada()));
-                    txtVKoef.setText(tableGrada.getItems().get(myIndex).getV_koeficient());
+                    txtVKoef.setText(tableGrada.getItems().get(myIndex).getkoeficient());
                 }
             });
             return myRow;
