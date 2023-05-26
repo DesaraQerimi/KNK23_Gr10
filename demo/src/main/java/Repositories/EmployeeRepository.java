@@ -3,6 +3,8 @@ package Repositories;
 import Models.Roli;
 import Services.ConnectionUtil;
 import Models.Employee;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 import java.sql.*;
@@ -14,12 +16,14 @@ public class EmployeeRepository {
     private static Connection conn;
 
     public EmployeeRepository() throws SQLException {
-        this.conn = ConnectionUtil.getConnection();
+        conn = ConnectionUtil.getConnection();
     }
+
 
     public static List<Employee> getAllEmployees() throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM employees");
+        PreparedStatement stmt = EmployeeRepository.conn.prepareStatement("SELECT * FROM employees");
+
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             int id = rs.getInt("id");
@@ -89,6 +93,30 @@ public class EmployeeRepository {
         }
     }
 
+    public static List<Employee> getAllEmployees(String string) throws SQLException {
+        List<Employee> employees = new ArrayList<>();
+        String sql = "SELECT * FROM employees";
+        Connection conn = ConnectionUtil.getConnection();
+        ResultSet rs = conn.createStatement().executeQuery(sql);
 
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            String lastname = rs.getString("lastname");
+            int roli = rs.getInt("roli");
+            Date start_date = rs.getDate("start_date");
+            Date end_date = rs.getDate("end_date");
+            String department = rs.getString("department");
+            String email = rs.getString("email");
+            String phone = rs.getString("phone");
+            Employee employee = new Employee(id, name, lastname, department, email, phone);
+
+            // TODO: fix roli
+            employees.add(employee);
+        }
+
+        return employees;
     }
+
+}
 

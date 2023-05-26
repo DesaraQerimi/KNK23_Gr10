@@ -10,25 +10,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AdminRepository {
-    private Connection conn;
+    private static Connection conn;
 
     public AdminRepository() throws SQLException {
         this.conn = ConnectionUtil.getConnection();
     }
 
-    public Admin login(String username, String password) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?");
-        stmt.setString(1, username);
-        stmt.setString(2, password);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            int id = rs.getInt("id");
-            String Username = rs.getString("username");
-            String Password = rs.getString("password");
+
+    public static Admin getByUsername(String username) throws SQLException{
+        String sql = "SELECT * FROM admin WHERE username = ?";
+        try{
+            Connection connection = ConnectionUtil.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                int id = rs.getInt("admin_id");
+                String password = rs.getString("password");
 
             return new Admin(id, username, password);
-        } else {
-            return null;
+        }}
+
+        catch(Exception ex){
+            ex.printStackTrace();
         }
+        return null;
     }
+
+
 }

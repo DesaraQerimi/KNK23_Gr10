@@ -3,20 +3,86 @@ package Services;
 import Repositories.EmployeeRepository;
 import Models.Employee;
 import Services.ConnectionUtil;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.List;
 
 public class EmployeeService {
 
-    private EmployeeRepository employeeRepository;
-    public EmployeeService() throws SQLException {
-        this.employeeRepository = new EmployeeRepository();
+    private final StringProperty firstName;
+    private final StringProperty lastname;
+    private final StringProperty department;
+    private final StringProperty email;
+
+
+    public String getFirstName() {
+        return firstName.get();
     }
 
-    public List<Employee> getAllEmployees() throws SQLException {
-        return EmployeeRepository.getAllEmployees();
+    public StringProperty firstNameProperty() {
+        return firstName;
     }
+
+    public String getLastname() {
+        return lastname.get();
+    }
+
+    public String getDepartment() {
+        return department.get();
+    }
+
+    public StringProperty departmentProperty() {
+        return department;
+    }
+
+    public String getEmail() {
+        return email.get();
+    }
+
+    public String getPhone() {
+        return phone.get();
+    }
+
+    public EmployeeRepository getEmployeeRepository() {
+        return employeeRepository;
+    }
+
+    private final StringProperty phone;
+
+
+    public EmployeeService(StringProperty firstName, StringProperty lastname, StringProperty department, StringProperty email, StringProperty phone) {
+        this.firstName = firstName;
+        this.lastname = lastname;
+        this.department = department;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public EmployeeService(Employee employee) {
+        this.firstName = new SimpleStringProperty(employee.getFirstName());
+        this.lastname = new SimpleStringProperty(employee.getLastName());
+        this.department = new SimpleStringProperty(employee.getDepartment());
+        this.email = new SimpleStringProperty(employee.getEmail());
+        this.phone = new SimpleStringProperty(employee.getPhone());
+    }
+    private EmployeeRepository employeeRepository;
+
+    public static ObservableList<EmployeeService> getAllEmployees() throws SQLException {
+        List<Employee> employeeList = EmployeeRepository.getAllEmployees();
+        ObservableList<EmployeeService> employees = FXCollections.observableArrayList();
+
+        for (Employee employee : employeeList) {
+            EmployeeService employeeService = new EmployeeService(employee);
+            employees.add(employeeService);
+        }
+
+        return employees;
+    }
+
 
     public static void addEmployee(Employee employee) throws SQLException {
         EmployeeRepository.addEmployee(employee);
@@ -100,6 +166,30 @@ public class EmployeeService {
 
         return employee;
     }
+
+
+
+
+    public StringProperty nameProperty(){
+        return firstName;
+    }
+
+    public StringProperty lastnameProperty(){
+        return lastname;
+    }
+
+    public StringProperty deptProperty(){
+        return department;
+    }
+
+    public StringProperty emailProperty(){
+        return email;
+    }
+
+    public StringProperty phoneProperty(){
+        return phone;
+    }
+
 
 
 

@@ -104,13 +104,13 @@
                                 </HBox>
                             </top>
                             <center>
-                                <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TableView fx:id="tableEmp" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                     <columns>
-                                        <TableColumn prefWidth="151.0" text="Name" />
-                                        <TableColumn prefWidth="136.0" text="Surname" />
-                                        <TableColumn minWidth="0.0" prefWidth="156.0" text="Departament" />
-                                        <TableColumn minWidth="0.0" prefWidth="221.0" text="Email" />
-                                        <TableColumn prefWidth="138.0" text="Phone" />
+                                        <TableColumn fx:id="colName" prefWidth="151.0" text="Name" />
+                                        <TableColumn fx:id="colSurname" prefWidth="136.0" text="Surname" />
+                                        <TableColumn fx:id="colDept" minWidth="0.0" prefWidth="156.0" text="Departament" />
+                                        <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="221.0" text="Email" />
+                                        <TableColumn fx:id="colPhone" prefWidth="138.0" text="Phone" />
                                     </columns>
                                 </TableView>
                             </center>

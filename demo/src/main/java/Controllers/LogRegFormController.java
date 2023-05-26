@@ -3,6 +3,7 @@ package Controllers;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import Models.Admin;
 import Services.ConnectionUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import Services.AdminService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -68,33 +70,32 @@ public class LogRegFormController implements Initializable {
     @FXML
     private Label li_errorLabel;
 
+    private AdminService AdminService;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-//        TODO
+
+    public LogRegFormController() throws SQLException {
+        this.AdminService = new AdminService();
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+    }
+
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) throws IOException {
+    private void handleLoginButtonAction(ActionEvent event) {
         String username = li_username.getText();
         String password = li_password.getText();
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
 
         try {
-            conn = ConnectionUtil.getConnection();
-            stmt = conn.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?");
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-            rs = stmt.executeQuery();
+            Admin admin = this.AdminService.login(username, password);
 
-
-
-            if (rs.next()) {
-                // User logged in successfully
+            if (admin == null) {
+                // Incorrect username or password
+                li_errorLabel.setText("Incorrect username or password");
+                li_errorLabel.setVisible(true);
+            } else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Controllers/Employee.fxml"));
                 Parent root = loader.load();
                 Object controller = loader.getController();
@@ -102,39 +103,18 @@ public class LogRegFormController implements Initializable {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
-            } else {
-                // Incorrect username or password
-                li_errorLabel.setText("Incorrect username or password");
-                li_errorLabel.setVisible(true);
             }
-
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        } catch (SQLException e) {
+            throw new RuntimeException("An error occurred during login.", e);
         }
     }
 
     @FXML
     public void login(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
-            try {
-                handleLoginButtonAction(new ActionEvent(keyEvent.getSource(), null)); // Pass keyEvent.getSource() instead of keyEvent
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            handleLoginButtonAction(new ActionEvent(keyEvent.getSource(), null)); // Pass keyEvent.getSource() instead of keyEvent
         }
     }
 
