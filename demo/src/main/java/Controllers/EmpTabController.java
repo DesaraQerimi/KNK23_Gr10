@@ -1,5 +1,11 @@
 package Controllers;
 
+import Services.Employee;
+import Services.EmployeeService;
+import Services.GradaDetails;
+import Services.RoliDetails;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,14 +14,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import Services.ConnectionUtil;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EmpTabController implements Initializable {
     @FXML
@@ -48,18 +61,59 @@ public class EmpTabController implements Initializable {
     @FXML
     private MenuBar menuBar;
 
+    @FXML
+    private TableColumn<EmployeeService, String> colName;
+
+    @FXML
+    private TableColumn<EmployeeService, String> colSurname;
+
+    @FXML
+    private TableColumn<EmployeeService, String> colDept;
+
+    @FXML
+    private TableColumn<EmployeeService, String> colEmail;
+
+    @FXML
+    private TableColumn<EmployeeService, String> colPhone;
+
+    @FXML
+    private TableView<EmployeeService> tableEmp;
+
+    private ObservableList<EmployeeService> data;
+
+    private Connection db;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        TODO
+        try {
+            db = ConnectionUtil.getConnection();
+            setupTableColumns();
+            loadDataFromDatabase(); // Load data from the database into the table
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    private void setupTableColumns() {
+        colName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        colSurname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        colDept.setCellValueFactory(new PropertyValueFactory<>("department"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+    }
+
+    private void loadDataFromDatabase() throws SQLException {
+        data = EmployeeService.getAllEmployees();
+        tableEmp.setItems(data);
+    }
+
 
     public void changeWindow(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableViewScene);
         window.show();
     }
@@ -80,6 +134,7 @@ public class EmpTabController implements Initializable {
     }
 
     Stage stage;
+
     public void logOut(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("You are about to log out!");
@@ -104,3 +159,7 @@ public class EmpTabController implements Initializable {
         }
     }
 }
+
+
+
+
