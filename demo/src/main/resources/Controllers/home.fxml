@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -47,7 +48,7 @@
             <top>
                 <HBox prefHeight="26.0" prefWidth="1021.0" BorderPane.alignment="CENTER">
                <children>
-                  <MenuBar fx:id="MenuItem" prefHeight="22.0" prefWidth="940.0">
+                  <MenuBar fx:id="MenuItem" prefHeight="27.0" prefWidth="1023.0">
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
@@ -88,31 +89,30 @@
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="15.0" prefHeight="215.0" prefWidth="775.0">
                                  <children>
-                                    <AnchorPane layoutX="23.0" layoutY="12.0" prefHeight="191.0" prefWidth="227.0" style="-fx-background-color: #4287f5;">
+                                    <AnchorPane layoutX="97.0" layoutY="12.0" prefHeight="191.0" prefWidth="252.0" style="-fx-background-color: #4287f5;">
                                        <children>
-                                          <FontAwesomeIconView fill="#fffefe" glyphName="USERS" layoutX="75.0" layoutY="109.0" size="6em" />
-                                          <Label layoutX="19.0" layoutY="126.0" text="Number of employees" textFill="#f8f7f7">
+                                          <FontAwesomeIconView fill="#fffefe" glyphName="USERS" layoutX="87.0" layoutY="108.0" size="6em" text="" />
+                                          <Label layoutX="31.0" layoutY="126.0" text="Number of employees" textFill="#f8f7f7">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="108.0" layoutY="153.0" text="0" textFill="WHITE">
+                                          <Label fx:id="home_totalEmployees" layoutX="120.0" layoutY="153.0" text="0" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="20.0" />
                                              </font>
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane layoutX="279.0" layoutY="12.0" prefHeight="191.0" prefWidth="224.0" style="-fx-background-color: #4287f5;" />
-                                    <AnchorPane layoutX="534.0" layoutY="12.0" prefHeight="191.0" prefWidth="218.0" style="-fx-background-color: #4287f5;">
+                                    <AnchorPane layoutX="430.0" layoutY="12.0" prefHeight="191.0" prefWidth="252.0" style="-fx-background-color: #4287f5;">
                                        <children>
-                                          <FontAwesomeIconView fill="WHITE" glyphName="MONEY" layoutX="64.0" layoutY="111.0" size="7em" />
-                                          <Label layoutX="84.0" layoutY="123.0" text="Income" textFill="WHITE">
+                                          <FontAwesomeIconView fill="WHITE" glyphName="MONEY" layoutX="81.0" layoutY="117.0" size="7em" text="" />
+                                          <Label layoutX="95.0" layoutY="129.0" prefWidth="63.0" text="Income" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="95.0" layoutY="150.0" text="0.0€" textFill="WHITE">
+                                          <Label fx:id="home_income" layoutX="107.0" layoutY="156.0" text="0.0€" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="20.0" />
                                              </font>
@@ -124,13 +124,16 @@
                               <Separator layoutX="14.0" layoutY="236.0" prefHeight="3.0" prefWidth="782.0" />
                               <AnchorPane layoutX="14.0" layoutY="247.0" prefHeight="360.0" prefWidth="775.0">
                                  <children>
-                                    <AreaChart layoutX="29.0" layoutY="18.0" prefHeight="345.0" prefWidth="709.0" title="Monthly Salary">
+                                    <AreaChart layoutX="4.0" layoutY="14.0" prefHeight="345.0" prefWidth="767.0" title="Monthly Salary">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
                                       <yAxis>
                                         <NumberAxis side="LEFT" />
                                       </yAxis>
+                                       <cursor>
+                                          <Cursor fx:constant="SE_RESIZE" />
+                                       </cursor>
                                     </AreaChart>
                                  </children>
                               </AnchorPane>

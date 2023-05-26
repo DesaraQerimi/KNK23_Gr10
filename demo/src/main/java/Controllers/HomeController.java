@@ -1,35 +1,35 @@
-package Controllers;
-
 import javafx.application.Application;
-import javafx.application.HostServices;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
+
+
+import java.io.IOException;
 import java.util.Optional;
 
 public class HomeController extends Application {
+    private Stage primaryStage;
+    private MenuBar menuBar;
 
-    private HostServices hostServices;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();
 
-        MenuBar menuBar = new MenuBar();
+        menuBar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
         MenuItem closeMenuItem = new MenuItem("Close");
-        closeMenuItem.setOnAction(event -> {
-            // Handle the action for "Close" menu item
-            primaryStage.close();
-        });
+        closeMenuItem.setOnAction(event -> primaryStage.close());
         fileMenu.getItems().add(closeMenuItem);
 
         Menu editMenu = new Menu("Edit");
@@ -53,26 +53,34 @@ public class HomeController extends Application {
 
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(question -> {
-
                 String helpCenterLink = "https://openjfx.io/";
-
-                hostServices.showDocument(helpCenterLink);
+                getHostServices().showDocument(helpCenterLink);
             });
         });
-        helpMenu.getItems().add(aboutMenuItem);
-
         menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
 
-        root.getChildren().add(menuBar);
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(event -> logout());
+
+        root.getChildren().addAll(menuBar, logoutButton);
 
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    @Override
-    public void init() throws Exception {
-        hostServices = getHostServices();
+    public void logout() {
+        // Navigate to the login page
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
