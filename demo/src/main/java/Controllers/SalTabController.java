@@ -6,6 +6,7 @@ import Services.RoliService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -107,6 +109,11 @@ public class SalTabController implements Initializable {
         db = new ConnectionUtil();
         tableRoli();
         tableGrada();
+
+        txtVKoef.addEventHandler(KeyEvent.KEY_TYPED, numberInputEventHandler());
+        txtGrada1.addEventHandler(KeyEvent.KEY_TYPED, numberInputEventHandler());
+        txtDepart.addEventHandler(KeyEvent.KEY_TYPED, letterInputEventHandler());
+        txtTit.addEventHandler(KeyEvent.KEY_TYPED, letterInputEventHandler());
     }
 
     public void changeWindow(ActionEvent event) throws IOException {
@@ -214,7 +221,7 @@ public class SalTabController implements Initializable {
     {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:4306/knk","root","");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/knk","root","");
         } catch (ClassNotFoundException ex) {
 
         } catch (SQLException ex) {
@@ -312,5 +319,45 @@ public class SalTabController implements Initializable {
             });
             return myRow;
         });
+    }
+
+    private EventHandler<KeyEvent> numberInputEventHandler() {
+        return new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (!validateNumberInput(event.getCharacter())) {
+                    showAlert("Invalid Input", "You can only write number characters");
+                    event.consume();
+                }
+            }
+        };
+    }
+
+    private EventHandler<KeyEvent> letterInputEventHandler() {
+        return new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (!validateLetterInput(event.getCharacter())) {
+                    showAlert("Invalid Input", "You can only write letter characters");
+                    event.consume();
+                }
+            }
+        };
+    }
+
+    private boolean validateNumberInput(String input) {
+        return input.matches("\\d");
+    }
+
+    private boolean validateLetterInput(String input) {
+        return input.matches("[a-zA-Z]");
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
