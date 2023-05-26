@@ -1,8 +1,8 @@
 package Controllers;
 
 import Services.ConnectionUtil;
-import Services.GradaDetails;
-import Services.RoliDetails;
+import Services.GradaService;
+import Services.RoliService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -61,28 +59,28 @@ public class SalTabController implements Initializable {
     private BorderPane salariesPage;
 
     @FXML
-    private TableColumn<RoliDetails,String> colDepartamenti;
+    private TableColumn<RoliService,String> colDepartamenti;
 
     @FXML
-    private TableColumn<GradaDetails, String> colGrada;
+    private TableColumn<GradaService, String> colGrada;
 
     @FXML
-    private TableColumn<RoliDetails,String> colGrada1;
+    private TableColumn<RoliService,String> colGrada1;
 
     @FXML
-    private TableColumn<RoliDetails,String> colRoli_id;
+    private TableColumn<RoliService,String> colRoli_id;
 
     @FXML
-    private TableColumn<RoliDetails,String> colTitulli;
+    private TableColumn<RoliService,String> colTitulli;
 
     @FXML
-    private TableColumn<GradaDetails, String> colkoeficient;
+    private TableColumn<GradaService, String> colkoeficient;
 
     @FXML
-    private TableView<GradaDetails> tableGrada;
+    private TableView<GradaService> tableGrada;
 
     @FXML
-    private TableView<RoliDetails> tableRoli;
+    private TableView<RoliService> tableRoli;
 
     @FXML
     private TextField txtDepart;
@@ -97,8 +95,8 @@ public class SalTabController implements Initializable {
     private TextField txtVKoef;
 
 
-    private ObservableList<GradaDetails>data;
-    private ObservableList<RoliDetails>data1;
+    private ObservableList<GradaService>data;
+    private ObservableList<RoliService>data1;
     private ConnectionUtil db;
 
 
@@ -134,7 +132,7 @@ public class SalTabController implements Initializable {
 
             // Open the login window
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogReg.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
                 Parent root = loader.load();
                 Stage loginStage = new Stage();
                 loginStage.setScene(new Scene(root));
@@ -216,7 +214,7 @@ public class SalTabController implements Initializable {
     {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/knk","root","");
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:4306/knk","root","");
         } catch (ClassNotFoundException ex) {
 
         } catch (SQLException ex) {
@@ -227,7 +225,7 @@ public class SalTabController implements Initializable {
     public void tableRoli()
     {
         Connect();
-        ObservableList<RoliDetails> roles = FXCollections.observableArrayList();
+        ObservableList<RoliService> roles = FXCollections.observableArrayList();
         try
         {
             pst = con.prepareStatement("select roli_id, grada, titulli, departamenti from roli");
@@ -235,7 +233,7 @@ public class SalTabController implements Initializable {
             {
                 while (rs.next())
                 {
-                    RoliDetails rd = new RoliDetails();
+                    RoliService rd = new RoliService();
                     rd.setRoli_id(rs.getString("roli_id"));
                     rd.setGrada(rs.getString("grada"));
                     rd.setDepartamenti(rs.getString("departamenti"));
@@ -256,7 +254,7 @@ public class SalTabController implements Initializable {
         }
 
         tableRoli.setRowFactory( tv -> {
-            TableRow<RoliDetails> myRow = new TableRow<>();
+            TableRow<RoliService> myRow = new TableRow<>();
             myRow.setOnMouseClicked (event ->
             {
                 if (event.getClickCount() == 1 && (!myRow.isEmpty()))
@@ -276,7 +274,7 @@ public class SalTabController implements Initializable {
     public void tableGrada()
     {
         Connect();
-        ObservableList<GradaDetails> grades = FXCollections.observableArrayList();
+        ObservableList<GradaService> grades = FXCollections.observableArrayList();
         try
         {
             pst = con.prepareStatement("select grada, koeficient from grada");
@@ -284,7 +282,7 @@ public class SalTabController implements Initializable {
             {
                 while (rs.next())
                 {
-                    GradaDetails rd = new GradaDetails();
+                    GradaService rd = new GradaService();
                     rd.setGrada(rs.getString("grada"));
                     rd.setkoeficient(rs.getString("koeficient"));
                     grades.add(rd);
@@ -301,7 +299,7 @@ public class SalTabController implements Initializable {
         }
 
         tableGrada.setRowFactory( tv -> {
-            TableRow<GradaDetails> myRow = new TableRow<>();
+            TableRow<GradaService> myRow = new TableRow<>();
             myRow.setOnMouseClicked (event ->
             {
                 if (event.getClickCount() == 1 && (!myRow.isEmpty()))

@@ -3,14 +3,14 @@ package Services;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class RoliDetails {
+public class RoliService {
     private final StringProperty roli_id;
     private final StringProperty grada;
     private final StringProperty departamenti;
     private final StringProperty titulli;
 
 
-    public RoliDetails(){
+    public RoliService(){
         roli_id = new SimpleStringProperty(this, "roli_id");
         grada = new SimpleStringProperty(this, "grada");
         departamenti = new SimpleStringProperty(this, "departamenti");

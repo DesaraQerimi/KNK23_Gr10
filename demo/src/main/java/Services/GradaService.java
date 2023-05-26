@@ -3,11 +3,11 @@ package Services;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class GradaDetails {
+public class GradaService {
     private final StringProperty grada;
     private final StringProperty koeficient;
 
-    public GradaDetails(){
+    public GradaService(){
         grada = new SimpleStringProperty(this, "grada");
         koeficient = new SimpleStringProperty(this, "koeficient");
     }

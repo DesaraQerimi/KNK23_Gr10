@@ -1,10 +1,6 @@
 package Controllers;
 
-import Services.Employee;
 import Services.EmployeeService;
-import Services.GradaDetails;
-import Services.RoliDetails;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import Services.ConnectionUtil;
@@ -23,12 +18,9 @@ import Services.ConnectionUtil;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EmpTabController implements Initializable {
     @FXML
@@ -148,7 +140,7 @@ public class EmpTabController implements Initializable {
 
             // Open the login window
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogReg.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
                 Parent root = loader.load();
                 Stage loginStage = new Stage();
                 loginStage.setScene(new Scene(root));

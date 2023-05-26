@@ -1,10 +1,8 @@
 package Controllers;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import Models.Admin;
-import Services.ConnectionUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,10 +22,9 @@ import Services.AdminService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
-public class LogRegFormController implements Initializable {
+public class LogInFormController implements Initializable {
     @FXML
     private Button li_btn;
 
@@ -73,7 +70,7 @@ public class LogRegFormController implements Initializable {
     private AdminService AdminService;
 
 
-    public LogRegFormController() throws SQLException {
+    public LogInFormController() throws SQLException {
         this.AdminService = new AdminService();
     }
 
