@@ -57,6 +57,12 @@ public class EmpTabController implements Initializable {
     private MenuBar menuBar;
 
     @FXML
+    private TextField filter;
+
+    @FXML
+    private Button btnFilter;
+
+    @FXML
     private TableColumn<EmployeeService, String> colName;
 
     @FXML
@@ -81,51 +87,29 @@ public class EmpTabController implements Initializable {
     private Pagination pagination;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             db = ConnectionUtil.getConnection();
             setupTableColumns();
-            loadDataFromDatabase(); // Load data from the database into the table
+            //loadDataFromDatabase(); // Load data from the database into the table
             setupPagination();
-            setupContextMenu();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-
-
-    private void setupContextMenu() {
-        ContextMenu contextMenu = new ContextMenu();
-
-        MenuItem viewInfoMenuItem = new MenuItem("View Info");
-        viewInfoMenuItem.setOnAction(event -> {
-            try {
-                // Krijo dritaren e re për të shfaqur formën EmployeeInfo.fxml
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeInfo.fxml"));
-                Parent root = loader.load();
-
-                // Krijo një skenë dhe shto formën në të
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Employee Information");
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        contextMenu.getItems().add(viewInfoMenuItem);
-
-        tableEmp.setContextMenu(contextMenu);
-    }
-
     private void setupPagination() throws SQLException {
         int itemsPerPage = 22; // Number of items to display per page
+        String searchText = filter.getText(); // Get the search text from the filter field
 
-        data = EmployeeService.getAllEmployees();
+        // Retrieve the employee data based on the search text
+        if (searchText == null || searchText.isEmpty()) {
+            data = EmployeeService.getAllEmployees(""); // Get all employees if search text is not set
+        } else {
+            data = EmployeeService.getAllEmployees(searchText); // Get employees based on the search text
+        }
+
         int pageCount = (data.size() / itemsPerPage) + 1;
 
         pagination.setPageCount(pageCount);
@@ -140,6 +124,16 @@ public class EmpTabController implements Initializable {
         });
     }
 
+    @FXML
+    private void filterEmployees(ActionEvent event) {
+        try {
+            setupPagination();
+            System.out.println("Working");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setupTableColumns() {
         colName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         colSurname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
@@ -148,10 +142,10 @@ public class EmpTabController implements Initializable {
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
     }
 
-    private void loadDataFromDatabase() throws SQLException {
-        data = EmployeeService.getAllEmployees();
-        tableEmp.setItems(data);
-    }
+    //private void loadDataFromDatabase() throws SQLException {
+      //  data = EmployeeService.getAllEmployees("");
+      //  tableEmp.setItems(data);
+   // }
 
 
     public void changeWindow(ActionEvent event) throws IOException {
@@ -204,3 +198,7 @@ public class EmpTabController implements Initializable {
         }
     }
 }
+
+
+
+
