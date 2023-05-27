@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.input.KeyCodeCombination?>
@@ -16,10 +17,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmpTabController">
+<AnchorPane prefHeight="350.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmpTabController">
 
     <children>
-        <BorderPane fx:id="employeesPage" prefHeight="733.0" prefWidth="1023.0">
+        <BorderPane fx:id="employeesPage" prefHeight="700.0" prefWidth="1023.0">
             <left>
                 <VBox prefHeight="519.0" prefWidth="221.0" spacing="10.0" style="-fx-background-color: #2262C2; -fx-background-radius: 0 60 0 0;" BorderPane.alignment="CENTER">
                     <children>
@@ -37,82 +38,86 @@
                         <Pane prefHeight="290.0" prefWidth="221.0">
                             <children>
                                 <Label layoutX="14.0" layoutY="171.0" text="Company" textFill="WHITE">
-                           <font>
-                              <Font name="Segoe UI Black" size="21.0" />
-                           </font></Label>
+                                    <font>
+                                        <Font name="Segoe UI Black" size="21.0" />
+                                    </font>
+                                </Label>
                             </children>
                         </Pane>
                     </children>
                 </VBox>
             </left>
             <top>
-                <HBox prefHeight="71.0" prefWidth="1012.0" BorderPane.alignment="CENTER">
-               <children>
-                  <MenuBar fx:id="menuBar">
-                    <menus>
-                      <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
-                        <items>
-                          <MenuItem fx:id="closeItem" mnemonicParsing="false" text="Close">
-                                 <accelerator>
-                                    <KeyCodeCombination alt="UP" code="C" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                                 </accelerator>
-                              </MenuItem>
-                        </items>
-                      </Menu>
-                      <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
-                        <items>
-                              <MenuItem fx:id="addnewItem" mnemonicParsing="false" onAction="#openAddNew" text="Add new">
-                                 <accelerator>
-                                    <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                                 </accelerator>
-                              </MenuItem>
-                        </items>
-                      </Menu>
-                      <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
-                        <items>
-                          <MenuItem mnemonicParsing="false" text="About">
-                                 <accelerator>
-                                    <KeyCodeCombination alt="UP" code="H" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                                 </accelerator>
-                              </MenuItem>
-                        </items>
-                      </Menu>
-                    </menus>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </MenuBar>
-                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logOut" prefWidth="80.0" text="Log Out">
-                     <HBox.margin>
-                        <Insets left="800.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children></HBox>
+                <HBox prefHeight="12.0" prefWidth="1023.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <MenuBar fx:id="menuBar">
+                            <menus>
+                                <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+                                    <items>
+                                        <MenuItem fx:id="closeItem" mnemonicParsing="false" text="Close">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="C" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                                            </accelerator>
+                                        </MenuItem>
+                                    </items>
+                                </Menu>
+                                <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
+                                    <items>
+                                        <MenuItem fx:id="addnewItem" mnemonicParsing="false" onAction="#openAddNew" text="Add new">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                                            </accelerator>
+                                        </MenuItem>
+                                    </items>
+                                </Menu>
+                                <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" text="About">
+                                            <accelerator>
+                                                <KeyCodeCombination alt="UP" code="H" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                                            </accelerator>
+                                        </MenuItem>
+                                    </items>
+                                </Menu>
+                            </menus>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </MenuBar>
+                        <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logOut" prefWidth="80.0" text="Log Out">
+                            <HBox.margin>
+                                <Insets left="800.0" top="10.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
             </top>
             <center>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
                     <children>
                         <BorderPane prefHeight="662.0" prefWidth="803.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <top>
                                 <HBox style="-fx-background-color: #2262C2;" BorderPane.alignment="CENTER">
                                     <children>
                                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="132.0" text="Members" textFill="WHITE">
-                                 <font>
-                                    <Font name="Segoe UI Black" size="16.0" />
-                                 </font></Label>
+                                            <font>
+                                                <Font name="Segoe UI Black" size="16.0" />
+                                            </font>
+                                        </Label>
                                     </children>
                                 </HBox>
                             </top>
                             <center>
-                                <TableView fx:id="tableEmp" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TableView fx:id="tableEmp" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                     <columns>
                                         <TableColumn fx:id="colName" prefWidth="151.0" text="Name" />
                                         <TableColumn fx:id="colSurname" prefWidth="136.0" text="Surname" />
-                                        <TableColumn fx:id="colDept" minWidth="0.0" prefWidth="156.0" text="Departament" />
+                                        <TableColumn fx:id="colDept" minWidth="0.0" prefWidth="156.0" text="Department" />
                                         <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="221.0" text="Email" />
                                         <TableColumn fx:id="colPhone" prefWidth="138.0" text="Phone" />
                                     </columns>
                                 </TableView>
+                                <Pagination fx:id="pagination" BorderPane.alignment="CENTER" />
                             </center>
                         </BorderPane>
                     </children>

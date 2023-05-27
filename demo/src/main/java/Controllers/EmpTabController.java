@@ -1,6 +1,7 @@
 package Controllers;
 
 import Services.EmployeeService;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import Services.ConnectionUtil;
+import javafx.scene.control.Pagination;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,6 +77,8 @@ public class EmpTabController implements Initializable {
     private ObservableList<EmployeeService> data;
 
     private Connection db;
+    @FXML
+    private Pagination pagination;
 
 
     @Override
@@ -82,11 +87,28 @@ public class EmpTabController implements Initializable {
             db = ConnectionUtil.getConnection();
             setupTableColumns();
             loadDataFromDatabase(); // Load data from the database into the table
+            setupPagination();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+    private void setupPagination() throws SQLException {
+        int itemsPerPage = 22; // Number of items to display per page
 
+        data = EmployeeService.getAllEmployees();
+        int pageCount = (data.size() / itemsPerPage) + 1;
+
+        pagination.setPageCount(pageCount);
+        pagination.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer pageIndex) {
+                int startIndex = pageIndex * itemsPerPage;
+                int endIndex = Math.min(startIndex + itemsPerPage, data.size());
+                tableEmp.setItems(FXCollections.observableArrayList(data.subList(startIndex, endIndex)));
+                return tableEmp;
+            }
+        });
+    }
     private void setupTableColumns() {
         colName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         colSurname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
