@@ -90,6 +90,7 @@ public class EmpTabController implements Initializable {
     private EmployeeInfoController infoController;
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -98,6 +99,9 @@ public class EmpTabController implements Initializable {
             //loadDataFromDatabase(); // Load data from the database into the table
             setupPagination();
             setupContextMenu();
+
+            // Add event listener to filter text field
+            filter.setOnAction(this::filterEmployees);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -163,7 +167,6 @@ public class EmpTabController implements Initializable {
     private void filterEmployees(ActionEvent event) {
         try {
             setupPagination();
-            System.out.println("Working");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -184,6 +187,15 @@ public class EmpTabController implements Initializable {
 
 
     public void changeWindow(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void changeWindowH(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 

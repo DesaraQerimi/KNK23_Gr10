@@ -2,7 +2,6 @@ package Services;
 
 import Repositories.EmployeeRepository;
 import Models.Employee;
-import Services.ConnectionUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -14,10 +13,10 @@ import java.util.List;
 public class EmployeeService {
 
     private final StringProperty firstName;
-    private final StringProperty lastname;
+    private final StringProperty lastName;
     private final StringProperty department;
     private final StringProperty email;
-
+    private final StringProperty phone;
 
     public String getFirstName() {
         return firstName.get();
@@ -27,8 +26,12 @@ public class EmployeeService {
         return firstName;
     }
 
-    public String getLastname() {
-        return lastname.get();
+    public String getLastName() {
+        return lastName.get();
+    }
+
+    public StringProperty lastNameProperty() {
+        return lastName;
     }
 
     public String getDepartment() {
@@ -47,16 +50,18 @@ public class EmployeeService {
         return phone.get();
     }
 
-    public EmployeeRepository getEmployeeRepository() {
-        return employeeRepository;
+    public EmployeeService(String firstName, String lastName, String department, String email, String phone) {
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
+        this.department = new SimpleStringProperty(department);
+        this.email = new SimpleStringProperty(email);
+        this.phone = new SimpleStringProperty(phone);
     }
 
-    private final StringProperty phone;
 
-
-    public EmployeeService(StringProperty firstName, StringProperty lastname, StringProperty department, StringProperty email, StringProperty phone) {
+    public EmployeeService(StringProperty firstName, StringProperty lastname, StringProperty lastName, StringProperty department, StringProperty email, StringProperty phone) {
         this.firstName = firstName;
-        this.lastname = lastname;
+        this.lastName = lastName;
         this.department = department;
         this.email = email;
         this.phone = phone;
@@ -64,7 +69,7 @@ public class EmployeeService {
 
     public EmployeeService(Employee employee) {
         this.firstName = new SimpleStringProperty(employee.getFirstName());
-        this.lastname = new SimpleStringProperty(employee.getLastName());
+        this.lastName = new SimpleStringProperty(employee.getLastName());
         this.department = new SimpleStringProperty(employee.getDepartment());
         this.email = new SimpleStringProperty(employee.getEmail());
         this.phone = new SimpleStringProperty(employee.getPhone());
@@ -175,7 +180,7 @@ public class EmployeeService {
     }
 
     public StringProperty lastnameProperty(){
-        return lastname;
+        return lastName;
     }
 
     public StringProperty deptProperty(){
