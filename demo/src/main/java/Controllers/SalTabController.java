@@ -1,11 +1,12 @@
 package Controllers;
 
 import Services.ConnectionUtil;
-import Services.GradaDetails;
-import Services.RoliDetails;
+import Services.GradaService;
+import Services.RoliService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,14 +14,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -61,28 +63,28 @@ public class SalTabController implements Initializable {
     private BorderPane salariesPage;
 
     @FXML
-    private TableColumn<RoliDetails,String> colDepartamenti;
+    private TableColumn<RoliService, String> colDepartamenti;
 
     @FXML
-    private TableColumn<GradaDetails, String> colGrada;
+    private TableColumn<GradaService, String> colGrada;
 
     @FXML
-    private TableColumn<RoliDetails,String> colGrada1;
+    private TableColumn<RoliService, String> colGrada1;
 
     @FXML
-    private TableColumn<RoliDetails,String> colRoli_id;
+    private TableColumn<RoliService, String> colRoli_id;
 
     @FXML
-    private TableColumn<RoliDetails,String> colTitulli;
+    private TableColumn<RoliService, String> colTitulli;
 
     @FXML
-    private TableColumn<GradaDetails, String> colkoeficient;
+    private TableColumn<GradaService, String> colkoeficient;
 
     @FXML
-    private TableView<GradaDetails> tableGrada;
+    private TableView<GradaService> tableGrada;
 
     @FXML
-    private TableView<RoliDetails> tableRoli;
+    private TableView<RoliService> tableRoli;
 
     @FXML
     private TextField txtDepart;
@@ -96,11 +98,9 @@ public class SalTabController implements Initializable {
     @FXML
     private TextField txtVKoef;
 
-
-    private ObservableList<GradaDetails>data;
-    private ObservableList<RoliDetails>data1;
+    private ObservableList<GradaService> data;
+    private ObservableList<RoliService> data1;
     private ConnectionUtil db;
-
 
 
     @Override
@@ -109,18 +109,24 @@ public class SalTabController implements Initializable {
         db = new ConnectionUtil();
         tableRoli();
         tableGrada();
+
+        txtVKoef.addEventHandler(KeyEvent.KEY_TYPED, numberInputEventHandler());
+        txtGrada1.addEventHandler(KeyEvent.KEY_TYPED, numberInputEventHandler());
+        txtDepart.addEventHandler(KeyEvent.KEY_TYPED, letterInputEventHandler());
+        txtTit.addEventHandler(KeyEvent.KEY_TYPED, letterInputEventHandler());
     }
 
     public void changeWindow(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("Employee.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableViewScene);
         window.show();
     }
 
     Stage stage;
+
     public void logOut(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("You are about to log out!");
@@ -134,7 +140,7 @@ public class SalTabController implements Initializable {
 
             // Open the login window
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogReg.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
                 Parent root = loader.load();
                 Stage loginStage = new Stage();
                 loginStage.setScene(new Scene(root));
@@ -150,6 +156,7 @@ public class SalTabController implements Initializable {
     int myIndex;
     int grada;
     int roli_id;
+
     @FXML
     void gradaUpFunc(ActionEvent event) {
         String koeficient;
@@ -158,8 +165,7 @@ public class SalTabController implements Initializable {
         myIndex = tableGrada.getSelectionModel().getSelectedIndex();
 
         koeficient = txtVKoef.getText();
-        try
-        {
+        try {
             Connect();
             pst = con.prepareStatement("update grada set koeficient = ? where grada = ? ");
             pst.setString(1, koeficient);
@@ -171,9 +177,7 @@ public class SalTabController implements Initializable {
 
             alert.showAndWait();
             tableGrada();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(SalTabController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -190,8 +194,7 @@ public class SalTabController implements Initializable {
         grada = txtGrada1.getText();
         departamenti = txtDepart.getText();
         titulli = txtTit.getText();
-        try
-        {
+        try {
             Connect();
             pst = con.prepareStatement("UPDATE roli SET grada = ?, departamenti = ?, titulli = ? WHERE roli_id = ? ");
             pst.setString(1, grada);
@@ -205,18 +208,15 @@ public class SalTabController implements Initializable {
 
             alert.showAndWait();
             tableRoli();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(SalTabController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void Connect()
-    {
+    public void Connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/knk","root","");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/knk", "root", "");
         } catch (ClassNotFoundException ex) {
 
         } catch (SQLException ex) {
@@ -224,18 +224,15 @@ public class SalTabController implements Initializable {
         }
     }
 
-    public void tableRoli()
-    {
+    public void tableRoli() {
         Connect();
-        ObservableList<RoliDetails> roles = FXCollections.observableArrayList();
-        try
-        {
+        ObservableList<RoliService> roles = FXCollections.observableArrayList();
+        try {
             pst = con.prepareStatement("select roli_id, grada, titulli, departamenti from roli");
             ResultSet rs = pst.executeQuery();
             {
-                while (rs.next())
-                {
-                    RoliDetails rd = new RoliDetails();
+                while (rs.next()) {
+                    RoliService rd = new RoliService();
                     rd.setRoli_id(rs.getString("roli_id"));
                     rd.setGrada(rs.getString("grada"));
                     rd.setDepartamenti(rs.getString("departamenti"));
@@ -248,20 +245,16 @@ public class SalTabController implements Initializable {
             colGrada1.setCellValueFactory(f -> f.getValue().gradaProperty());
             colDepartamenti.setCellValueFactory(f -> f.getValue().departamentiProperty());
             colTitulli.setCellValueFactory(f -> f.getValue().titulliProperty());
-        }
-
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(SalTabController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        tableRoli.setRowFactory( tv -> {
-            TableRow<RoliDetails> myRow = new TableRow<>();
-            myRow.setOnMouseClicked (event ->
+        tableRoli.setRowFactory(tv -> {
+            TableRow<RoliService> myRow = new TableRow<>();
+            myRow.setOnMouseClicked(event ->
             {
-                if (event.getClickCount() == 1 && (!myRow.isEmpty()))
-                {
-                    myIndex =  tableRoli.getSelectionModel().getSelectedIndex();
+                if (event.getClickCount() == 1 && (!myRow.isEmpty())) {
+                    myIndex = tableRoli.getSelectionModel().getSelectedIndex();
 
                     roli_id = Integer.parseInt(String.valueOf(tableRoli.getItems().get(myIndex).getRoli_id()));
                     txtGrada1.setText(tableRoli.getItems().get(myIndex).getGrada());
@@ -276,7 +269,7 @@ public class SalTabController implements Initializable {
     public void tableGrada()
     {
         Connect();
-        ObservableList<GradaDetails> grades = FXCollections.observableArrayList();
+        ObservableList<GradaService> grades = FXCollections.observableArrayList();
         try
         {
             pst = con.prepareStatement("select grada, koeficient from grada");
@@ -284,7 +277,7 @@ public class SalTabController implements Initializable {
             {
                 while (rs.next())
                 {
-                    GradaDetails rd = new GradaDetails();
+                    GradaService rd = new GradaService();
                     rd.setGrada(rs.getString("grada"));
                     rd.setkoeficient(rs.getString("koeficient"));
                     grades.add(rd);
@@ -301,7 +294,7 @@ public class SalTabController implements Initializable {
         }
 
         tableGrada.setRowFactory( tv -> {
-            TableRow<GradaDetails> myRow = new TableRow<>();
+            TableRow<GradaService> myRow = new TableRow<>();
             myRow.setOnMouseClicked (event ->
             {
                 if (event.getClickCount() == 1 && (!myRow.isEmpty()))
@@ -314,5 +307,45 @@ public class SalTabController implements Initializable {
             });
             return myRow;
         });
+    }
+
+    private EventHandler<KeyEvent> numberInputEventHandler() {
+        return new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (!validateNumberInput(event.getCharacter())) {
+                    showAlert("Invalid Input", "You can only write number characters");
+                    event.consume();
+                }
+            }
+        };
+    }
+
+    private EventHandler<KeyEvent> letterInputEventHandler() {
+        return new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (!validateLetterInput(event.getCharacter())) {
+                    showAlert("Invalid Input", "You can only write letter characters");
+                    event.consume();
+                }
+            }
+        };
+    }
+
+    private boolean validateNumberInput(String input) {
+        return input.matches("\\d");
+    }
+
+    private boolean validateLetterInput(String input) {
+        return input.matches("[a-zA-Z]");
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

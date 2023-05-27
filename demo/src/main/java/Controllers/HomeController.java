@@ -1,35 +1,126 @@
 package Controllers;
 
 import javafx.application.Application;
-import javafx.application.HostServices;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.layout.BorderPane;
+
+import static javafx.application.Application.launch;
 
 public class HomeController extends Application {
 
-    private HostServices hostServices;
+    @FXML
+    private MenuBar MenuItem;
+
+    @FXML
+    private Button employeesEBtn;
+
+    @FXML
+    private Button employeesEBtn1;
+
+    @FXML
+    private BorderPane employeesPage;
+
+    @FXML
+    private Button employeesSBtn;
+
+    @FXML
+    private Button employeesSBtn1;
+
+    @FXML
+    private CheckMenuItem enMenuItem;
+    @FXML
+    private SplitMenuButton msLang;
+
+    @FXML
+    private AreaChart<?, ?> homeChart;
+
+    @FXML
+    private Label home_income;
+
+    @FXML
+    private Label home_totalEmployees;
+
+    @FXML
+    void changeWindow(ActionEvent event) {
+    }
+
+
+        private Stage primaryStage;
+    private MenuBar menuBar;
+
+   //employees
+    public void homeTotalEmployees() {
+        String sql = "SELECT COUNT(id) FROM employee";
+
+        connect = database.connectDb();
+        int countData = 0;
+        try {
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while (result.next()) {
+                countData = result.getInt("COUNT(id)");
+            }
+
+            home_totalEmployees.setText(String.valueOf(countData));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+//linechart
+public void homeChart() {
+
+    home_chart.getData().clear();
+
+    String sql = "SELECT date, AVG(salary) FROM employee GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 7";
+
+    connect = database.connectDb();
+
+    try {
+        XYChart.Series chart = new XYChart.Series();
+
+        prepare = connect.prepareStatement(sql);
+        result = prepare.executeQuery();
+
+        while (result.next()) {
+            chart.getData().add(new XYChart.Data(result.getString(1), result.getDouble(2)));
+        }
+
+        home_chart.getData().add(chart);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+}
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();
 
-        MenuBar menuBar = new MenuBar();
+        menuBar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
         MenuItem closeMenuItem = new MenuItem("Close");
-        closeMenuItem.setOnAction(event -> {
-            // Handle the action for "Close" menu item
-            primaryStage.close();
-        });
+        closeMenuItem.setOnAction(event -> primaryStage.close());
         fileMenu.getItems().add(closeMenuItem);
 
         Menu editMenu = new Menu("Edit");
@@ -53,27 +144,54 @@ public class HomeController extends Application {
 
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(question -> {
-
                 String helpCenterLink = "https://openjfx.io/";
-
-                hostServices.showDocument(helpCenterLink);
+                getHostServices().showDocument(helpCenterLink);
             });
         });
-        helpMenu.getItems().add(aboutMenuItem);
-
         menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
 
-        root.getChildren().add(menuBar);
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(event -> logout());
+
+        root.getChildren().addAll(menuBar, logoutButton);
 
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    @Override
-    public void init() throws Exception {
-        hostServices = getHostServices();
+    public void logout() {
+        // Navigate to the login page
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+}
+
+public class MainController {
+
+    @FXML
+    private Button en_bttn;
+
+    @FXML
+    private Button al_bttn;
+
+    @FXML
+    private Label signIn;
+
+    @FXML
+    private Label signUp;
+
+    private ResourceBundle bundle;
+
+
 
     public static void main(String[] args) {
         launch(args);

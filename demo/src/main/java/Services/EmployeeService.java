@@ -71,8 +71,8 @@ public class EmployeeService {
     }
     private EmployeeRepository employeeRepository;
 
-    public static ObservableList<EmployeeService> getAllEmployees() throws SQLException {
-        List<Employee> employeeList = EmployeeRepository.getAllEmployees();
+    public static ObservableList<EmployeeService> getAllEmployees(String filter) throws SQLException {
+        List<Employee> employeeList = EmployeeRepository.getAllEmployees(filter);
         ObservableList<EmployeeService> employees = FXCollections.observableArrayList();
 
         for (Employee employee : employeeList) {
@@ -189,9 +189,4 @@ public class EmployeeService {
     public StringProperty phoneProperty(){
         return phone;
     }
-
-
-
-
-
 }

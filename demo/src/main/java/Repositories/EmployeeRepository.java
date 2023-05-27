@@ -108,9 +108,14 @@ public class EmployeeRepository {
         }
     }
 
-    public List<Employee> getAllEmployees(String string) throws SQLException {
+    public static List<Employee> getAllEmployees(String string) throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        String sql = "SELECT * FROM employees";
+        String sql;
+        if(string.equals("")){
+            sql = "SELECT * FROM employees";
+        }else{
+            sql = "SELECT * FROM employees WHERE name LIKE '%"+string+"%' OR lastname LIKE '%"+string+"%' OR department LIKE '%"+string+"%'";
+        }
         try (Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {

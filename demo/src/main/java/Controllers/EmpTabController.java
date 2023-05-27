@@ -1,9 +1,6 @@
 package Controllers;
 
-import Services.Employee;
 import Services.EmployeeService;
-import Services.GradaDetails;
-import Services.RoliDetails;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,20 +12,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import Services.ConnectionUtil;
+import javafx.scene.control.Pagination;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EmpTabController implements Initializable {
     @FXML
@@ -62,6 +57,12 @@ public class EmpTabController implements Initializable {
     private MenuBar menuBar;
 
     @FXML
+    private TextField filter;
+
+    @FXML
+    private Button btnFilter;
+
+    @FXML
     private TableColumn<EmployeeService, String> colName;
 
     @FXML
@@ -82,6 +83,9 @@ public class EmpTabController implements Initializable {
     private ObservableList<EmployeeService> data;
 
     private Connection db;
+    @FXML
+    private Pagination pagination;
+
 
 
     @Override
@@ -89,9 +93,72 @@ public class EmpTabController implements Initializable {
         try {
             db = ConnectionUtil.getConnection();
             setupTableColumns();
-            loadDataFromDatabase(); // Load data from the database into the table
+            //loadDataFromDatabase(); // Load data from the database into the table
+            setupPagination();
+            setupContextMenu();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void setupContextMenu() {
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem viewInfoMenuItem = new MenuItem("View Info");
+        viewInfoMenuItem.setOnAction(event -> {
+                try {
+                    // Krijo dritaren e re për të shfaqur formën EmployeeInfo.fxml
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeInfo.fxml"));
+                    Parent root = loader.load();
+
+                    // Krijo një skenë dhe shto formën në të
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Employee Information");
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        });
+
+        contextMenu.getItems().add(viewInfoMenuItem);
+
+        tableEmp.setContextMenu(contextMenu);
+    }
+
+    private void setupPagination() throws SQLException {
+        int itemsPerPage = 22; // Number of items to display per page
+        String searchText = filter.getText(); // Get the search text from the filter field
+
+        // Retrieve the employee data based on the search text
+        if (searchText == null || searchText.isEmpty()) {
+            data = EmployeeService.getAllEmployees(""); // Get all employees if search text is not set
+        } else {
+            data = EmployeeService.getAllEmployees(searchText); // Get employees based on the search text
+        }
+
+        int pageCount = (data.size() / itemsPerPage) + 1;
+
+        pagination.setPageCount(pageCount);
+        pagination.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer pageIndex) {
+                int startIndex = pageIndex * itemsPerPage;
+                int endIndex = Math.min(startIndex + itemsPerPage, data.size());
+                tableEmp.setItems(FXCollections.observableArrayList(data.subList(startIndex, endIndex)));
+                return tableEmp;
+            }
+        });
+    }
+
+    @FXML
+    private void filterEmployees(ActionEvent event) {
+        try {
+            setupPagination();
+            System.out.println("Working");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -103,13 +170,22 @@ public class EmpTabController implements Initializable {
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
     }
 
-    private void loadDataFromDatabase() throws SQLException {
-        data = EmployeeService.getAllEmployees();
-        tableEmp.setItems(data);
-    }
+    //private void loadDataFromDatabase() throws SQLException {
+      //  data = EmployeeService.getAllEmployees("");
+      //  tableEmp.setItems(data);
+   // }
 
 
     public void changeWindow(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void changeWindowH(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
@@ -148,7 +224,7 @@ public class EmpTabController implements Initializable {
 
             // Open the login window
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogReg.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
                 Parent root = loader.load();
                 Stage loginStage = new Stage();
                 loginStage.setScene(new Scene(root));

@@ -122,7 +122,7 @@
                         </TableView>
                      </center>
                      <left>
-                        <TableView fx:id="tableGrada" prefHeight="306.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="tableGrada" prefHeight="134.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                           <columns>
                             <TableColumn fx:id="colGrada" prefWidth="130.39997255802155" text="Grada" />
                             <TableColumn fx:id="colkoeficient" prefWidth="119.19998779296876" text="koeficient" />
