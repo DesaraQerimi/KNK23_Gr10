@@ -95,10 +95,38 @@ public class EmpTabController implements Initializable {
             setupTableColumns();
             //loadDataFromDatabase(); // Load data from the database into the table
             setupPagination();
+            setupContextMenu();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+    private void setupContextMenu() {
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem viewInfoMenuItem = new MenuItem("View Info");
+        viewInfoMenuItem.setOnAction(event -> {
+                try {
+                    // Krijo dritaren e re për të shfaqur formën EmployeeInfo.fxml
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeInfo.fxml"));
+                    Parent root = loader.load();
+
+                    // Krijo një skenë dhe shto formën në të
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Employee Information");
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        });
+
+        contextMenu.getItems().add(viewInfoMenuItem);
+
+        tableEmp.setContextMenu(contextMenu);
+    }
+
     private void setupPagination() throws SQLException {
         int itemsPerPage = 22; // Number of items to display per page
         String searchText = filter.getText(); // Get the search text from the filter field
