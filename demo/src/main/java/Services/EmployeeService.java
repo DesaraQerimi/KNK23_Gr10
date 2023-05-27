@@ -189,9 +189,4 @@ public class EmployeeService {
     public StringProperty phoneProperty(){
         return phone;
     }
-
-
-
-
-
 }

@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -61,19 +63,19 @@ public class SalTabController implements Initializable {
     private BorderPane salariesPage;
 
     @FXML
-    private TableColumn<RoliService,String> colDepartamenti;
+    private TableColumn<RoliService, String> colDepartamenti;
 
     @FXML
     private TableColumn<GradaService, String> colGrada;
 
     @FXML
-    private TableColumn<RoliService,String> colGrada1;
+    private TableColumn<RoliService, String> colGrada1;
 
     @FXML
-    private TableColumn<RoliService,String> colRoli_id;
+    private TableColumn<RoliService, String> colRoli_id;
 
     @FXML
-    private TableColumn<RoliService,String> colTitulli;
+    private TableColumn<RoliService, String> colTitulli;
 
     @FXML
     private TableColumn<GradaService, String> colkoeficient;
@@ -96,11 +98,9 @@ public class SalTabController implements Initializable {
     @FXML
     private TextField txtVKoef;
 
-
-    private ObservableList<GradaService>data;
-    private ObservableList<RoliService>data1;
+    private ObservableList<GradaService> data;
+    private ObservableList<RoliService> data1;
     private ConnectionUtil db;
-
 
 
     @Override
@@ -120,12 +120,13 @@ public class SalTabController implements Initializable {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("Employee.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableViewScene);
         window.show();
     }
 
     Stage stage;
+
     public void logOut(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("You are about to log out!");
@@ -155,6 +156,7 @@ public class SalTabController implements Initializable {
     int myIndex;
     int grada;
     int roli_id;
+
     @FXML
     void gradaUpFunc(ActionEvent event) {
         String koeficient;
@@ -163,8 +165,7 @@ public class SalTabController implements Initializable {
         myIndex = tableGrada.getSelectionModel().getSelectedIndex();
 
         koeficient = txtVKoef.getText();
-        try
-        {
+        try {
             Connect();
             pst = con.prepareStatement("update grada set koeficient = ? where grada = ? ");
             pst.setString(1, koeficient);
@@ -176,9 +177,7 @@ public class SalTabController implements Initializable {
 
             alert.showAndWait();
             tableGrada();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(SalTabController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -195,8 +194,7 @@ public class SalTabController implements Initializable {
         grada = txtGrada1.getText();
         departamenti = txtDepart.getText();
         titulli = txtTit.getText();
-        try
-        {
+        try {
             Connect();
             pst = con.prepareStatement("UPDATE roli SET grada = ?, departamenti = ?, titulli = ? WHERE roli_id = ? ");
             pst.setString(1, grada);
@@ -210,18 +208,15 @@ public class SalTabController implements Initializable {
 
             alert.showAndWait();
             tableRoli();
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(SalTabController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void Connect()
-    {
+    public void Connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/knk","root","");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/knk", "root", "");
         } catch (ClassNotFoundException ex) {
 
         } catch (SQLException ex) {
@@ -229,17 +224,14 @@ public class SalTabController implements Initializable {
         }
     }
 
-    public void tableRoli()
-    {
+    public void tableRoli() {
         Connect();
         ObservableList<RoliService> roles = FXCollections.observableArrayList();
-        try
-        {
+        try {
             pst = con.prepareStatement("select roli_id, grada, titulli, departamenti from roli");
             ResultSet rs = pst.executeQuery();
             {
-                while (rs.next())
-                {
+                while (rs.next()) {
                     RoliService rd = new RoliService();
                     rd.setRoli_id(rs.getString("roli_id"));
                     rd.setGrada(rs.getString("grada"));
@@ -253,20 +245,16 @@ public class SalTabController implements Initializable {
             colGrada1.setCellValueFactory(f -> f.getValue().gradaProperty());
             colDepartamenti.setCellValueFactory(f -> f.getValue().departamentiProperty());
             colTitulli.setCellValueFactory(f -> f.getValue().titulliProperty());
-        }
-
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             Logger.getLogger(SalTabController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        tableRoli.setRowFactory( tv -> {
+        tableRoli.setRowFactory(tv -> {
             TableRow<RoliService> myRow = new TableRow<>();
-            myRow.setOnMouseClicked (event ->
+            myRow.setOnMouseClicked(event ->
             {
-                if (event.getClickCount() == 1 && (!myRow.isEmpty()))
-                {
-                    myIndex =  tableRoli.getSelectionModel().getSelectedIndex();
+                if (event.getClickCount() == 1 && (!myRow.isEmpty())) {
+                    myIndex = tableRoli.getSelectionModel().getSelectedIndex();
 
                     roli_id = Integer.parseInt(String.valueOf(tableRoli.getItems().get(myIndex).getRoli_id()));
                     txtGrada1.setText(tableRoli.getItems().get(myIndex).getGrada());
