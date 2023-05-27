@@ -88,6 +88,7 @@ public class EmpTabController implements Initializable {
 
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -96,6 +97,9 @@ public class EmpTabController implements Initializable {
             //loadDataFromDatabase(); // Load data from the database into the table
             setupPagination();
             setupContextMenu();
+
+            // Add event listener to filter text field
+            filter.setOnAction(this::filterEmployees);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -156,7 +160,6 @@ public class EmpTabController implements Initializable {
     private void filterEmployees(ActionEvent event) {
         try {
             setupPagination();
-            System.out.println("Working");
         } catch (SQLException e) {
             e.printStackTrace();
         }
