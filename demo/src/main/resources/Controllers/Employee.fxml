@@ -100,7 +100,7 @@
                             <top>
                                 <HBox style="-fx-background-color: #2262C2;" BorderPane.alignment="CENTER">
                                     <children>
-                              <TextField fx:id="filter" prefHeight="25.0" prefWidth="123.0" promptText="Emri">
+                              <TextField fx:id="filter" prefHeight="25.0" prefWidth="123.0" promptText="Filter...">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                                  </HBox.margin>
