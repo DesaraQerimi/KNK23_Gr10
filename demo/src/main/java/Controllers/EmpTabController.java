@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.Employee;
 import Services.EmployeeService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -86,6 +87,7 @@ public class EmpTabController implements Initializable {
     @FXML
     private Pagination pagination;
 
+    private EmployeeInfoController infoController;
 
 
     @Override
@@ -106,10 +108,14 @@ public class EmpTabController implements Initializable {
 
         MenuItem viewInfoMenuItem = new MenuItem("View Info");
         viewInfoMenuItem.setOnAction(event -> {
+            EmployeeService selectedEmployee = tableEmp.getSelectionModel().getSelectedItem();
+            if (selectedEmployee != null) {
                 try {
                     // Krijo dritaren e re për të shfaqur formën EmployeeInfo.fxml
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("EmployeeInfo.fxml"));
                     Parent root = loader.load();
+                    infoController = loader.getController();
+                    infoController.setEmployee(selectedEmployee); // Përcjellni të dhënat e zgjedhura te EmployeeInfoController
 
                     // Krijo një skenë dhe shto formën në të
                     Scene scene = new Scene(root);
@@ -120,6 +126,7 @@ public class EmpTabController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
         });
 
         contextMenu.getItems().add(viewInfoMenuItem);
