@@ -27,24 +27,24 @@ public class EmployeeRepository {
         conn = ConnectionUtil.getConnection();
     }
 
-    public static List<Employee> getAllEmployees() throws SQLException {
-        List<Employee> employees = new ArrayList<>();
-        String sql = "SELECT * FROM employees";
-        try (Statement statement = conn.createStatement();
-             ResultSet rs = statement.executeQuery(sql)) {
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String firstName = rs.getString("name");
-                String lastName = rs.getString("lastname");
-                String department = rs.getString("department");
-                String email = rs.getString("email");
-                String phone = rs.getString("phone");
-                Employee employee = new Employee(id, firstName, lastName, department, email, phone);
-                employees.add(employee);
-            }
-        }
-        return employees;
-    }
+//    public static List<Employee> getAllEmployees() throws SQLException {
+//        List<Employee> employees = new ArrayList<>();
+//        String sql = "SELECT * FROM employees";
+//        try (Statement statement = conn.createStatement();
+//             ResultSet rs = statement.executeQuery(sql)) {
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String firstName = rs.getString("name");
+//                String lastName = rs.getString("lastname");
+//                String department = rs.getString("department");
+//                String email = rs.getString("email");
+//                String phone = rs.getString("phone");
+//                Employee employee = new Employee(id, firstName, lastName, department, email, phone);
+//                employees.add(employee);
+//            }
+//        }
+//        return employees;
+//    }
 
     public static Employee addEmployee(Employee employee) throws SQLException {
         String sql = "INSERT INTO employees (name, lastname, department, email, phone) VALUES (?, ?, ?, ?, ?)";
@@ -89,28 +89,34 @@ public class EmployeeRepository {
         }
     }
 
-    public Employee getByName(String name) throws SQLException {
-        String sql = "SELECT * FROM employees WHERE name = ?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, name);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    int id = resultSet.getInt("id");
-                    String lastName = resultSet.getString("lastname");
-                    String department = resultSet.getString("department");
-                    String email = resultSet.getString("email");
-                    String phone = resultSet.getString("phone");
-                    return new Employee(id, name, lastName, department, email, phone);
-                } else {
-                    return null;
-                }
-            }
-        }
-    }
+//    public Employee getByName(String name) throws SQLException {
+//        String sql = "SELECT * FROM employees WHERE name = ?";
+//        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+//            statement.setString(1, name);
+//            try (ResultSet resultSet = statement.executeQuery()) {
+//                if (resultSet.next()) {
+//                    int id = resultSet.getInt("id");
+//                    String firstName = resultSet.getString("name");
+//                    String lastName = resultSet.getString("lastname");
+//                    String department = resultSet.getString("department");
+//                    String email = resultSet.getString("email");
+//                    String phone = resultSet.getString("phone");
+//                    return new Employee(id, firstName, lastName, department, email, phone);
+//                } else {
+//                    return null;
+//                }
+//            }
+//        }
+//    }
 
     public static List<Employee> getAllEmployees(String string) throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        String sql = "SELECT * FROM employees";
+        String sql;
+        if(string.equals("")){
+            sql = "SELECT * FROM employees";
+        }else{
+            sql = "SELECT * FROM employees WHERE name LIKE '%"+string+"%' OR lastname LIKE '%"+string+"%' OR department LIKE '%"+string+"%'";
+        }
         try (Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {

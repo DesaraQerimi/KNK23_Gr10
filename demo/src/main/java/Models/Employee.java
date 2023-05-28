@@ -3,7 +3,7 @@ package Models;
 import java.util.Date;
 
 public class Employee {
-        public static int id;
+        private static int id;
         private String firstName;
         private String lastName;
         private String department;
@@ -43,7 +43,7 @@ public class Employee {
         this.end_date = end_date;
     }
 
-    // Getters and setters for all fields
+// Getters and setters for all fields
 
         public static int getId() {
             return id;

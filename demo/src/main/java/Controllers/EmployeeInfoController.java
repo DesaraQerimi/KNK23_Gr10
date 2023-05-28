@@ -3,15 +3,14 @@ package Controllers;
 import Models.Employee;
 import Services.ConnectionUtil;
 import Services.EmployeeService;
-import Services.GradaService;
-import Services.RoliService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.net.URL;
 import java.sql.*;
 import java.util.Optional;
@@ -42,18 +41,42 @@ public class EmployeeInfoController implements Initializable {
     @FXML
     private TextField empPhone;
 
+    @FXML
+    private Button empUpload;
+
+    @FXML
+    private Label contractStatusLabel;
+
     private EmployeeService employeeService;
+
+    private File selectedContractFile;
+
+//    @FXML
+//    private void uploadContract(ActionEvent event) {
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Select Contract PDF File");
+//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+//
+//        // Show the file chooser dialog
+//        File selectedFile = fileChooser.showOpenDialog(empUpload.getScene().getWindow());
+//
+//        if (selectedFile != null) {
+//            // File selected, store the reference
+//            selectedContractFile = selectedFile;
+//        }
+//    }
 
     public void setEmployee(EmployeeService employee) {
         this.employeeService = employee;
 
-        // Vendosni të dhënat në textfield-at përkatëse
+        // Set the other employee data in the text fields
         empFName.setText(employee.getFirstName());
         empLName.setText(employee.getLastName());
         empDep.setText(employee.getDepartment());
         empEmail.setText(employee.getEmail());
         empPhone.setText(employee.getPhone());
     }
+
 
     @FXML
     private void deleteEmployee(ActionEvent event) {
@@ -128,5 +151,4 @@ public class EmployeeInfoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-
 }

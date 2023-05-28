@@ -18,45 +18,47 @@
             </Label>
          </children>
       </Pane>
-      <TextField fx:id="empFName" layoutX="172.0" layoutY="99.0" />
-      <TextField fx:id="empDep" layoutX="172.0" layoutY="199.0" />
-      <TextField fx:id="empLName" layoutX="172.0" layoutY="147.0" />
-      <TextField fx:id="empEmail" layoutX="172.0" layoutY="251.0" />
-      <TextField fx:id="empPhone" layoutX="172.0" layoutY="297.0" />
-      <Label layoutX="53.0" layoutY="103.0" text="Emri:">
+      <TextField fx:id="empFName" layoutX="175.0" layoutY="79.0" />
+      <TextField fx:id="empDep" layoutX="175.0" layoutY="179.0" />
+      <TextField fx:id="empLName" layoutX="175.0" layoutY="127.0" />
+      <TextField fx:id="empEmail" layoutX="175.0" layoutY="231.0" />
+      <TextField fx:id="empPhone" layoutX="175.0" layoutY="277.0" />
+      <Label layoutX="56.0" layoutY="83.0" text="Emri:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="53.0" layoutY="151.0" prefHeight="20.0" prefWidth="64.0" text="Mbiemri:">
+      <Label layoutX="56.0" layoutY="131.0" prefHeight="20.0" prefWidth="64.0" text="Mbiemri:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="55.0" layoutY="255.0" prefHeight="18.0" prefWidth="47.0" text="Email:">
+      <Label layoutX="58.0" layoutY="235.0" prefHeight="18.0" prefWidth="47.0" text="Email:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="53.0" layoutY="203.0" prefHeight="20.0" prefWidth="95.0" text="Departamenti:">
+      <Label layoutX="56.0" layoutY="183.0" prefHeight="20.0" prefWidth="95.0" text="Departamenti:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="55.0" layoutY="301.0" prefHeight="18.0" prefWidth="47.0" text="Numri:">
+      <Label layoutX="58.0" layoutY="281.0" prefHeight="18.0" prefWidth="47.0" text="Numri:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="empEditBtn" layoutX="45.0" layoutY="380.0" mnemonicParsing="false" onAction="#updateEmployee" text="Ndrysho Employee">
+      <Button fx:id="empEditBtn" layoutX="45.0" layoutY="390.0" mnemonicParsing="false" onAction="#updateEmployee" text="Ndrysho Employee">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="empDelBtn" layoutX="224.0" layoutY="380.0" mnemonicParsing="false" onAction="#deleteEmployee" text="Fshij Employee">
+      <Button fx:id="empDelBtn" layoutX="224.0" layoutY="390.0" mnemonicParsing="false" onAction="#deleteEmployee" text="Fshij Employee">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Button fx:id="empUpload" layoutX="135.0" layoutY="327.0" mnemonicParsing="false" onAction="#uploadContract" text="Vendos Kontraten" />
+      <Label fx:id="contractStatusLabel" layoutX="256.0" layoutY="315.0" prefHeight="61.0" prefWidth="86.0" text="Ky Employee nuk ka kontratë pune!" textFill="RED" wrapText="true" />
    </children>
 </AnchorPane>
