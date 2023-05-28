@@ -18,6 +18,27 @@ public class EmployeeService {
     private final StringProperty email;
     private final StringProperty phone;
 
+
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName.set(lastName);
+    }
+
+    public void setDepartment(String department) {
+        this.department.set(department);
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
+    public void setPhone(String phone) {
+        this.phone.set(phone);
+    }
+
     public String getFirstName() {
         return firstName.get();
     }

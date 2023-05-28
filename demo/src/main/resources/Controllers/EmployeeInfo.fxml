@@ -48,7 +48,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="empEditBtn" layoutX="45.0" layoutY="380.0" mnemonicParsing="false" text="Ndrysho Employee">
+      <Button fx:id="empEditBtn" layoutX="45.0" layoutY="380.0" mnemonicParsing="false" onAction="#updateEmployee" text="Ndrysho Employee">
          <font>
             <Font size="14.0" />
          </font>
