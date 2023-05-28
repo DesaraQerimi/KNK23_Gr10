@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -21,32 +21,45 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeController">
 
     <children>
-        <BorderPane fx:id="employeesPage" prefHeight="733.0" prefWidth="1023.0">
+        <BorderPane fx:id="homePage" prefHeight="700.0" prefWidth="1023.0">
             <left>
                 <VBox prefHeight="519.0" prefWidth="221.0" spacing="10.0" style="-fx-background-color: #2262C2;" BorderPane.alignment="CENTER">
                     <children>
-                        <Pane prefHeight="92.0" prefWidth="221.0" />
-                        <Pane prefHeight="594.0" prefWidth="221.0">
+                        <Pane prefHeight="105.0" prefWidth="221.0" />
+                  <Button fx:id="employeesEBtn1" alignment="TOP_CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
+                        <Button fx:id="employeesEBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#changeWindowE" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Employees" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
+                        <Button fx:id="employeesSBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#changeWindow" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Salaries" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
+                        <Pane prefHeight="290.0" prefWidth="221.0">
                             <children>
-                        <Button fx:id="logoutButton" alignment="TOP_CENTER" layoutX="26.0" layoutY="534.0" mnemonicParsing="false" onAction="#changeWindow" prefHeight="36.0" prefWidth="100.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Log out" textFill="#f8f8f8">
-                           <graphic>
-
-                           </graphic>
-                        </Button>
-                                <Label layoutX="62.0" layoutY="252.0" text="Company" textFill="WHITE">
+                                <Label layoutY="171.0" text="Company" textFill="WHITE">
                                     <font>
                                         <Font name="Segoe UI Black" size="21.0" />
-                                    </font></Label>
-                              <Button fx:id="employeesSBtn" alignment="TOP_CENTER" layoutX="26.0" layoutY="154.0" mnemonicParsing="false" onAction="#changeWindow" prefHeight="39.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Salaries" textFill="WHITE" />
-                              <Button fx:id="employeesEBtn" alignment="TOP_CENTER" layoutX="26.0" layoutY="100.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Employees" textFill="WHITE" />
-                        <Button fx:id="employeesEBtn1" alignment="TOP_CENTER" layoutX="26.0" layoutY="43.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Home" textFill="WHITE" />
+                                    </font>
+                        </Label>
                             </children>
                         </Pane>
+                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logOut" prefHeight="36.0" prefWidth="100.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Log out" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" top="60.0" />
+                     </VBox.margin>
+                  </Button>
                     </children>
                 </VBox>
             </left>
             <top>
-                <HBox prefHeight="26.0" prefWidth="1021.0" BorderPane.alignment="CENTER">
+                <HBox prefHeight="12.0" prefWidth="1021.0" BorderPane.alignment="CENTER">
                <children>
                   <MenuBar fx:id="MenuItem" prefHeight="27.0" prefWidth="1023.0">
                     <menus>
