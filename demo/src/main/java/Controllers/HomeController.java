@@ -184,7 +184,7 @@ public class HomeController {
     }
 
 
-
+//Internationalization
     void translateEnglish() {
         Locale currentLocale = new Locale("en");
 
