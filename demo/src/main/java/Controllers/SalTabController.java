@@ -124,6 +124,14 @@ public class SalTabController implements Initializable {
         window.setScene(tableViewScene);
         window.show();
     }
+    public void changeWindowH(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(tableViewScene);
+        window.show();
+    }
 
     Stage stage;
 
