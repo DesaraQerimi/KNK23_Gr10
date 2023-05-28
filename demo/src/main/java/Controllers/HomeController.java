@@ -1,118 +1,87 @@
 package Controllers;
+<<<<<<< Updated upstream
 
 import javafx.application.Application;
+=======
+import Models.ChartData;
+import Services.ConnectionUtil;
+import Services.HomeService;
+>>>>>>> Stashed changes
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.layout.BorderPane;
-
 import static javafx.application.Application.launch;
 
-public class HomeController extends Application {
+public class HomeController {
 
     @FXML
-    private MenuBar MenuItem;
-
-    @FXML
-    private Button employeesEBtn;
-
-    @FXML
-    private Button employeesEBtn1;
-
-    @FXML
-    private BorderPane employeesPage;
-
-    @FXML
-    private Button employeesSBtn;
-
-    @FXML
-    private Button employeesSBtn1;
-
-    @FXML
-    private CheckMenuItem enMenuItem;
-    @FXML
-    private SplitMenuButton msLang;
-
-    @FXML
-    private AreaChart<?, ?> homeChart;
-
-    @FXML
-    private Label home_income;
+    private AreaChart<String, Double> homeChart;
 
     @FXML
     private Label home_totalEmployees;
 
     @FXML
+    private Button en_bttn;
+
+    @FXML
+    private Button al_bttn;
+
+    @FXML
+    private Label signIn;
+
+    @FXML
+    private Label signUp;
+
+    public HomeController() throws SQLException {
+        home_totalEmployees.setText(String.valueOf(totalEmployees));
+    }
+
+    @FXML
     void changeWindow(ActionEvent event) {
     }
 
-
-        private Stage primaryStage;
+    private Stage primaryStage;
     private MenuBar menuBar;
 
    //employees
-    public void homeTotalEmployees() {
-        String sql = "SELECT COUNT(id) FROM employee";
-
-        connect = database.connectDb();
-        int countData = 0;
+    HomeService homeService = new HomeService();
+    int totalEmployees = homeService.homeTotalEmployees();
+    @FXML
+    public void initialize() {
         try {
+            // Set total employees label
+            int totalEmployees = homeService.homeTotalEmployees();
+            home_totalEmployees.setText(String.valueOf(totalEmployees));
 
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
+            List<ChartData> chartDataList = homeService.getChartData();
 
-            while (result.next()) {
-                countData = result.getInt("COUNT(id)");
+            XYChart.Series<String, Double> chartSeries = new XYChart.Series<>();
+            for (ChartData chartData : chartDataList) {
+                chartSeries.getData().add(new XYChart.Data<>(chartData.getDate(), chartData.getAverageSalary()));
             }
 
-            home_totalEmployees.setText(String.valueOf(countData));
-
-        } catch (Exception e) {
+            homeChart.getData().add(chartSeries);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
-//linechart
-public void homeChart() {
-
-    home_chart.getData().clear();
-
-    String sql = "SELECT date, AVG(salary) FROM employee GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 7";
-
-    connect = database.connectDb();
-
-    try {
-        XYChart.Series chart = new XYChart.Series();
-
-        prepare = connect.prepareStatement(sql);
-        result = prepare.executeQuery();
-
-        while (result.next()) {
-            chart.getData().add(new XYChart.Data(result.getString(1), result.getDouble(2)));
-        }
-
-        home_chart.getData().add(chart);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-}
-
-    @Override
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();
 
@@ -144,10 +113,24 @@ public void homeChart() {
 
             Optional<String> result = dialog.showAndWait();
             result.ifPresent(question -> {
-                String helpCenterLink = "https://openjfx.io/";
-                getHostServices().showDocument(helpCenterLink);
+                try {
+                    HomeService.HelpService.saveQuestion(question); // Call the service to save the question
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Help Menu");
+                    alert.setHeaderText("Question Submitted");
+                    alert.setContentText("Thank you for submitting your question!");
+                    alert.showAndWait();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Help Menu");
+                    alert.setHeaderText("Error");
+                    alert.setContentText("An error occurred while submitting your question. Please try again.");
+                    alert.showAndWait();
+                }
             });
         });
+
         menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
 
         Button logoutButton = new Button("Logout");
@@ -164,7 +147,7 @@ public void homeChart() {
         // Navigate to the login page
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
@@ -173,27 +156,38 @@ public void homeChart() {
             e.printStackTrace();
         }
     }
-}
-
-public class MainController {
-
-    @FXML
-    private Button en_bttn;
-
-    @FXML
-    private Button al_bttn;
-
-    @FXML
-    private Label signIn;
-
-    @FXML
-    private Label signUp;
-
-    private ResourceBundle bundle;
 
 
 
-    public static void main(String[] args) {
-        launch(args);
+    void translateEnglish() {
+        Locale currentLocale = new Locale("en");
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content", currentLocale);
+        signIn.setText(translate.getString("button.signIn"));
+        signUp.setText(translate.getString("button.signUp"));
+
     }
+
+    void translateAlbanian() {
+        Locale currentLocale = new Locale("sq");
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content", currentLocale);
+        signIn.setText(translate.getString("button.signIn"));
+        signUp.setText(translate.getString("button.signUp"));
+
+    }
+
+    public void initialize(URL url, ResourceBundle rb) {
+        Locale.setDefault(new Locale("sq"));
+        translateAlbanian();
+        al_bttn.setOnMouseClicked(e -> {
+            translateAlbanian();
+        });
+        en_bttn.setOnMouseClicked(e -> {
+            translateEnglish();
+        });
+
+    }
+
+
 }
