@@ -1,12 +1,9 @@
 package Controllers;
-<<<<<<< Updated upstream
 
 import javafx.application.Application;
-=======
 import Models.ChartData;
 import Services.ConnectionUtil;
 import Services.HomeService;
->>>>>>> Stashed changes
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
