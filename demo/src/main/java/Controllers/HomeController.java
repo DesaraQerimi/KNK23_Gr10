@@ -57,7 +57,7 @@ public class HomeController {
             // Initialize HomeService
             HomeService homeService = new HomeService();
 
-            // Set total employees label
+            // Set the total employees label
             int totalEmployees = homeService.homeTotalEmployees();
             home_totalEmployees.setText(String.valueOf(totalEmployees));
 
@@ -107,8 +107,6 @@ public class HomeController {
 
    //employees
     HomeService homeService = new HomeService();
-
-
 
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();
