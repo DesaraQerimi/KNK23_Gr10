@@ -200,7 +200,7 @@ public class HomeController {
     void translateAlbanian() {
         Locale currentLocale = new Locale("sq");
 
-        ResourceBundle translate = ResourceBundle.getBundle("translation.content", currentLocale);
+        ResourceBundle translate = ResourceBundle.getBundle("Translation.content.content_en.properties", currentLocale);
         signIn.setText(translate.getString("button.signIn"));
         signUp.setText(translate.getString("button.signUp"));
 
