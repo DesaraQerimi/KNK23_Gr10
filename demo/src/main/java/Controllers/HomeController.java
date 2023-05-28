@@ -45,9 +45,32 @@ public class HomeController {
     @FXML
     private Label signUp;
 
-    public HomeController() throws SQLException {
-        home_totalEmployees.setText(String.valueOf(totalEmployees));
+
+    @FXML
+    public void initialize() {
+        try {
+            // Initialize HomeService
+            HomeService homeService = new HomeService();
+
+            // Set total employees label
+            int totalEmployees = homeService.homeTotalEmployees();
+            home_totalEmployees.setText(String.valueOf(totalEmployees));
+
+            List<ChartData> chartDataList = homeService.getChartData();
+
+            XYChart.Series<String, Double> chartSeries = new XYChart.Series<>();
+            for (ChartData chartData : chartDataList) {
+                chartSeries.getData().add(new XYChart.Data<>(chartData.getDate(), (double) chartData.getEmployeeCount()));
+            }
+
+            homeChart.getData().add(chartSeries);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
 
     @FXML
     void changeWindow(ActionEvent event) {
@@ -58,26 +81,8 @@ public class HomeController {
 
    //employees
     HomeService homeService = new HomeService();
-    int totalEmployees = homeService.homeTotalEmployees();
-    @FXML
-    public void initialize() {
-        try {
-            // Set total employees label
-            int totalEmployees = homeService.homeTotalEmployees();
-            home_totalEmployees.setText(String.valueOf(totalEmployees));
 
-            List<ChartData> chartDataList = homeService.getChartData();
 
-            XYChart.Series<String, Double> chartSeries = new XYChart.Series<>();
-            for (ChartData chartData : chartDataList) {
-                chartSeries.getData().add(new XYChart.Data<>(chartData.getDate(), chartData.getAverageSalary()));
-            }
-
-            homeChart.getData().add(chartSeries);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();

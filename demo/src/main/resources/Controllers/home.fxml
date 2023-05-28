@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmpTabController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeController">
 
     <children>
         <BorderPane fx:id="employeesPage" prefHeight="733.0" prefWidth="1023.0">
@@ -30,7 +30,7 @@
                             <children>
                         <Button fx:id="logoutButton" alignment="TOP_CENTER" layoutX="26.0" layoutY="534.0" mnemonicParsing="false" onAction="#changeWindow" prefHeight="36.0" prefWidth="100.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Log out" textFill="#f8f8f8">
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="2em" />
+
                            </graphic>
                         </Button>
                                 <Label layoutX="62.0" layoutY="252.0" text="Company" textFill="WHITE">
@@ -91,7 +91,6 @@
                                  <children>
                                     <AnchorPane layoutX="206.0" layoutY="12.0" prefHeight="191.0" prefWidth="364.0" style="-fx-background-color: #4287f5;">
                                        <children>
-                                          <FontAwesomeIconView fill="#fffefe" glyphName="USERS" layoutX="143.0" layoutY="105.0" size="6em" text="" />
                                           <Label layoutX="88.0" layoutY="126.0" text="Number of employees" textFill="#f8f7f7">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />

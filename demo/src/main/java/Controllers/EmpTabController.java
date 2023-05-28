@@ -196,7 +196,7 @@ public class EmpTabController implements Initializable {
     }
 
     public void changeWindowH(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("home.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
