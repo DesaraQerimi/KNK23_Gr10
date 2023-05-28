@@ -1,7 +1,11 @@
 package Services;
 
+import Repositories.RoliRepository;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class RoliService {
     private final StringProperty roli_id;
@@ -66,5 +70,29 @@ public class RoliService {
 
     public StringProperty titulliProperty(){
         return titulli;
+    }
+
+    public List<RoliService> getAllRoles() {
+        RoliRepository roliRepository;
+        List<RoliService> roles = null;
+        try {
+            roliRepository = new RoliRepository();
+            roles = roliRepository.getAllRoles();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // handle the exception
+        }
+        return roles;
+    }
+
+    public void updateRole(String grada, String departamenti, String titulli, int roliId) {
+        RoliRepository roliRepository;
+        try {
+            roliRepository = new RoliRepository();
+            roliRepository.updateRole(grada, departamenti, titulli, roliId);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // handle the exception
+        }
     }
 }

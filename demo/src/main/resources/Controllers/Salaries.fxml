@@ -19,11 +19,16 @@
 
 <AnchorPane prefHeight="733.0" prefWidth="1023.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SalTabController">
    <children>
-      <BorderPane fx:id="salariesPage" layoutX="10.0" layoutY="10.0" maxHeight="733.0" maxWidth="1023.0" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="salariesPage" layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="1023.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox prefHeight="519.0" prefWidth="221.0" spacing="10.0" style="-fx-background-color: #2262C2; -fx-background-radius: 0 60 0 0;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="519.0" prefWidth="221.0" spacing="10.0" style="-fx-background-color: #2262C2;" BorderPane.alignment="CENTER">
                <children>
                   <Pane prefHeight="105.0" prefWidth="221.0" />
+                  <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#changeWindowH" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Button>
                   <Button fx:id="employeesEBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#changeWindow" prefHeight="25.0" prefWidth="170.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Employees" textFill="WHITE">
                      <VBox.margin>
                         <Insets left="20.0" />
@@ -43,11 +48,16 @@
                         </Label>
                      </children>
                   </Pane>
+                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logOut" prefHeight="36.0" prefWidth="100.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Log Out" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" top="60.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
          </left>
          <top>
-            <HBox prefHeight="71.0" prefWidth="1079.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="18.0" prefWidth="1023.0" BorderPane.alignment="CENTER">
                <children>
                   <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="93.0">
                      <menus>
@@ -74,11 +84,6 @@
                         <Insets />
                      </opaqueInsets>
                   </MenuBar>
-                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logOut" prefWidth="80.0" text="Log Out">
-                     <HBox.margin>
-                        <Insets left="840.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
                </children>
             </HBox>
          </top>
@@ -137,7 +142,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="gradaUpBtn" layoutX="123.0" layoutY="87.0" mnemonicParsing="false" onAction="#gradaUpFunc" prefHeight="28.0" prefWidth="117.0" text="Update">
+                        <Button fx:id="gradaUpBtn" layoutX="123.0" layoutY="87.0" mnemonicParsing="false" onAction="#gradaUpFunc" prefHeight="28.0" prefWidth="117.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Update">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -145,7 +150,7 @@
                         <TextField fx:id="txtVKoef" layoutX="191.0" layoutY="32.0" prefHeight="25.0" prefWidth="115.0" />
                      </children>
                   </Pane>
-                  <Pane layoutX="426.0" layoutY="432.0" prefHeight="231.0" prefWidth="354.0" style="-fx-background-color: #a3d4ff;">
+                  <Pane layoutX="433.0" layoutY="469.0" prefHeight="196.0" prefWidth="348.0" style="-fx-background-color: #a3d4ff;">
                      <children>
                         <Label layoutX="46.0" layoutY="42.0" text="Grada:">
                            <font>
@@ -162,7 +167,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Button fx:id="roliUpBtn" layoutX="131.0" layoutY="174.0" mnemonicParsing="false" onAction="#roliUpFunc" prefHeight="28.0" prefWidth="117.0" text="Update">
+                        <Button fx:id="roliUpBtn" layoutX="130.0" layoutY="158.0" mnemonicParsing="false" onAction="#roliUpFunc" prefHeight="28.0" prefWidth="117.0" styleClass="employeebtns" stylesheets="@../css/style.css" text="Update">
                            <font>
                               <Font size="14.0" />
                            </font>

@@ -124,6 +124,14 @@ public class SalTabController implements Initializable {
         window.setScene(tableViewScene);
         window.show();
     }
+    public void changeWindowH(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(tableViewScene);
+        window.show();
+    }
 
     Stage stage;
 
@@ -165,21 +173,9 @@ public class SalTabController implements Initializable {
         myIndex = tableGrada.getSelectionModel().getSelectedIndex();
 
         koeficient = txtVKoef.getText();
-        try {
-            Connect();
-            pst = con.prepareStatement("update grada set koeficient = ? where grada = ? ");
-            pst.setString(1, koeficient);
-            pst.setInt(2, grada);
-            pst.executeUpdate();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("You are about to change the data!");
-            alert.setContentText("Do you want to make an update?");
-
-            alert.showAndWait();
-            tableGrada();
-        } catch (SQLException ex) {
-            Logger.getLogger(SalTabController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        GradaService gradaService = new GradaService();
+        gradaService.updateGrade(koeficient, grada);
+        tableGrada();
     }
 
     @FXML
@@ -188,29 +184,18 @@ public class SalTabController implements Initializable {
         String departamenti;
         String titulli;
 
+        RoliService roliService = new RoliService();
+
         roli_id = Integer.parseInt(String.valueOf(tableRoli.getItems().get(myIndex).getRoli_id()));
         myIndex = tableRoli.getSelectionModel().getSelectedIndex();
 
         grada = txtGrada1.getText();
         departamenti = txtDepart.getText();
         titulli = txtTit.getText();
-        try {
-            Connect();
-            pst = con.prepareStatement("UPDATE roli SET grada = ?, departamenti = ?, titulli = ? WHERE roli_id = ? ");
-            pst.setString(1, grada);
-            pst.setString(2, departamenti);
-            pst.setString(3, titulli);
-            pst.setInt(4, roli_id);
-            pst.executeUpdate();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("You are about to change the data!");
-            alert.setContentText("Do you want to make an update?");
 
-            alert.showAndWait();
-            tableRoli();
-        } catch (SQLException ex) {
-            Logger.getLogger(SalTabController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        roliService.updateRole(grada, departamenti, titulli, roli_id);
+        tableRoli();
+
     }
 
     public void Connect() {
