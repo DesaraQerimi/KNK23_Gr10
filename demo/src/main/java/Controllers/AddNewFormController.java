@@ -71,6 +71,19 @@ public class AddNewFormController implements Initializable {
         phone.setText(translate.getString("addNewForm.phone"));
         addButton.setText(translate.getString("addNewForm.addButton"));
     }
+    //translation to albanian
+   @Override
+    void translateAlbanian() {
+        Locale currentLocale = new Locale("sq");
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en.properties", currentLocale);
+        addtitle.setText(translate.getString("addNewForm.addTitle"));
+        name.setText(translate.getString("addNewForm.name"));
+       	surname.setText(translate.getString("addNewForm.surname"));
+        email.setText(translate.getString("addNewForm.email"));
+        phone.setText(translate.getString("addNewForm.phone"));
+        addButton.setText(translate.getString("addNewForm.addButton"));
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
