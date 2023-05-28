@@ -245,7 +245,7 @@ public class HomeController {
             Stage currentStage = (Stage) homePage.getScene().getWindow();
             currentStage.close();
 
-            // Open the login window
+            // Opens the login window
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
                 Parent root = loader.load();
