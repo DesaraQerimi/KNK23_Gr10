@@ -49,7 +49,8 @@ public class HomeController {
     @FXML
     private BorderPane homePage;
 
-
+    @FXML
+    private MenuItem aboutMenuItem;
 
     @FXML
     public void initialize() {
@@ -72,6 +73,33 @@ public class HomeController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        aboutMenuItem.setOnAction(event -> {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Help Menu");
+            dialog.setHeaderText("Ask a question");
+            dialog.setContentText("Please enter your question:");
+
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(question -> {
+                try {
+                    HomeService.HelpService.saveQuestion(question); // Call the service to save the question
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Help Menu");
+                    alert.setHeaderText("Question Submitted");
+                    alert.setContentText("Thank you for submitting your question!");
+                    alert.showAndWait();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Help Menu");
+                    alert.setHeaderText("Error");
+                    alert.setContentText("An error occurred while submitting your question. Please try again.");
+                    alert.showAndWait();
+                }
+            });
+        });
+
     }
 
 
