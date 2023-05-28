@@ -1,5 +1,4 @@
 package Controllers;
-
 import javafx.application.Application;
 import Models.ChartData;
 import Services.ConnectionUtil;
