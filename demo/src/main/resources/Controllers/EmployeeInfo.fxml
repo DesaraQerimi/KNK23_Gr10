@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="462.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmployeeInfoController">
+<AnchorPane fx:id="empInfo" prefHeight="462.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmployeeInfoController">
    <children>
       <Pane prefHeight="50.0" prefWidth="381.0" style="-fx-background-color: #52438F;">
          <children>
@@ -48,12 +48,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="empEditBtn" layoutX="45.0" layoutY="380.0" mnemonicParsing="false" onAction="#update" text="Ndrysho Employee">
+      <Button fx:id="empEditBtn" layoutX="45.0" layoutY="380.0" mnemonicParsing="false" text="Ndrysho Employee">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="empDelBtn" layoutX="224.0" layoutY="380.0" mnemonicParsing="false" text="Fshij Employee">
+      <Button fx:id="empDelBtn" layoutX="224.0" layoutY="380.0" mnemonicParsing="false" onAction="#deleteEmployee" text="Fshij Employee">
          <font>
             <Font size="14.0" />
          </font>
