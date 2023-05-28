@@ -51,20 +51,20 @@ public class EmployeeInfoController implements Initializable {
 
     private File selectedContractFile;
 
-//    @FXML
-//    private void uploadContract(ActionEvent event) {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Select Contract PDF File");
-//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-//
-//        // Show the file chooser dialog
-//        File selectedFile = fileChooser.showOpenDialog(empUpload.getScene().getWindow());
-//
-//        if (selectedFile != null) {
-//            // File selected, store the reference
-//            selectedContractFile = selectedFile;
-//        }
-//    }
+    @FXML
+    private void uploadContract(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Contract PDF File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+        // Show the file chooser dialog
+        File selectedFile = fileChooser.showOpenDialog(empUpload.getScene().getWindow());
+
+        if (selectedFile != null) {
+            // File selected, store the reference
+            selectedContractFile = selectedFile;
+        }
+    }
 
     public void setEmployee(EmployeeService employee) {
         this.employeeService = employee;
@@ -75,9 +75,11 @@ public class EmployeeInfoController implements Initializable {
         empDep.setText(employee.getDepartment());
         empEmail.setText(employee.getEmail());
         empPhone.setText(employee.getPhone());
+
+        email = empEmail.getText();
+
     }
-
-
+private String email;
     @FXML
     private void deleteEmployee(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -90,8 +92,8 @@ public class EmployeeInfoController implements Initializable {
             try {
                 // Delete the employee from the database
                 Connection conn = ConnectionUtil.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("DELETE FROM employees WHERE id = ?");
-                stmt.setInt(1, Employee.getId());
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM employees WHERE email = ?");
+                stmt.setString(1, email);
                 stmt.executeUpdate();
 
                 // Close the current window
@@ -101,6 +103,7 @@ public class EmployeeInfoController implements Initializable {
             }
         }
     }
+
 
     @FXML
     private void updateEmployee(ActionEvent event) {
@@ -150,5 +153,6 @@ public class EmployeeInfoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(empEmail.getText());
     }
 }
