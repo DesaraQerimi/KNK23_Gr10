@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EmpTabController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeController">
 
     <children>
         <BorderPane fx:id="employeesPage" prefHeight="733.0" prefWidth="1023.0">
@@ -81,6 +82,16 @@
                                                 <Font name="Segoe UI Black" size="16.0" />
                                             </font>
                               </Label>
+                              <Button fx:id="al_bttn" mnemonicParsing="false" text="AL">
+                                 <HBox.margin>
+                                    <Insets left="500.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="en_bttn" mnemonicParsing="false" text="EN">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Button>
                                     </children>
                                 </HBox>
                             </top>
@@ -104,8 +115,6 @@
                                           </Label>
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="en_bttn" layoutX="667.0" layoutY="-12.0" mnemonicParsing="false" text="EN" />
-                                    <Button fx:id="al_bttn" layoutX="721.0" layoutY="-12.0" mnemonicParsing="false" text="AL" />
                                  </children>
                               </AnchorPane>
                               <Separator layoutX="14.0" layoutY="236.0" prefHeight="3.0" prefWidth="782.0" />
