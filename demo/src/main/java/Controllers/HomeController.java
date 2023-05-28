@@ -1,13 +1,11 @@
 package Controllers;
-<<<<<<< Updated upstream
 
 import javafx.application.Application;
-=======
 import Models.ChartData;
 import Services.ConnectionUtil;
 import Services.HomeService;
->>>>>>> Stashed changes
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.XYChart;
@@ -48,23 +46,18 @@ public class HomeController {
     @FXML
     private Label signUp;
 
-    public HomeController() throws SQLException {
-        home_totalEmployees.setText(String.valueOf(totalEmployees));
-    }
+    @FXML
+    private BorderPane homePage;
 
     @FXML
-    void changeWindow(ActionEvent event) {
-    }
+    private MenuItem aboutMenuItem;
 
-    private Stage primaryStage;
-    private MenuBar menuBar;
-
-   //employees
-    HomeService homeService = new HomeService();
-    int totalEmployees = homeService.homeTotalEmployees();
     @FXML
     public void initialize() {
         try {
+            // Initialize HomeService
+            HomeService homeService = new HomeService();
+
             // Set total employees label
             int totalEmployees = homeService.homeTotalEmployees();
             home_totalEmployees.setText(String.valueOf(totalEmployees));
@@ -73,14 +66,50 @@ public class HomeController {
 
             XYChart.Series<String, Double> chartSeries = new XYChart.Series<>();
             for (ChartData chartData : chartDataList) {
-                chartSeries.getData().add(new XYChart.Data<>(chartData.getDate(), chartData.getAverageSalary()));
+                chartSeries.getData().add(new XYChart.Data<>(chartData.getDate(), (double) chartData.getEmployeeCount()));
             }
 
             homeChart.getData().add(chartSeries);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        aboutMenuItem.setOnAction(event -> {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Help Menu");
+            dialog.setHeaderText("Ask a question");
+            dialog.setContentText("Please enter your question:");
+
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(question -> {
+                try {
+                    HomeService.HelpService.saveQuestion(question); // Call the service to save the question
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Help Menu");
+                    alert.setHeaderText("Question Submitted");
+                    alert.setContentText("Thank you for submitting your question!");
+                    alert.showAndWait();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Help Menu");
+                    alert.setHeaderText("Error");
+                    alert.setContentText("An error occurred while submitting your question. Please try again.");
+                    alert.showAndWait();
+                }
+            });
+        });
+
     }
+
+
+    private Stage primaryStage;
+    private MenuBar menuBar;
+
+   //employees
+    HomeService homeService = new HomeService();
+
+
 
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();
@@ -190,4 +219,45 @@ public class HomeController {
     }
 
 
+    public void changeWindow(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("Salaries.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void changeWindowE(ActionEvent event) throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("Employee.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void logOut(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("You are about to log out!");
+//        alert.setContentText("Do you want to save before exiting?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Close the current window
+            Stage currentStage = (Stage) homePage.getScene().getWindow();
+            currentStage.close();
+
+            // Open the login window
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
+                Parent root = loader.load();
+                Stage loginStage = new Stage();
+                loginStage.setScene(new Scene(root));
+                loginStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

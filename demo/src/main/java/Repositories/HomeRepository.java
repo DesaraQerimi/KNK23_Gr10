@@ -13,23 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeRepository {
-    private Connection connect;
+    private static Connection connect;
 
     public HomeRepository() throws SQLException {
         connect = ConnectionUtil.getConnection();
     }
     public List<ChartData> getChartData() throws SQLException {
-        String sql = "SELECT date, AVG(salary) FROM employee GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 7";
+        String sql = "SELECT MONTH(start_date) AS month, COUNT(*) AS employee_count FROM employees GROUP BY MONTH(start_date) ORDER BY MONTH(start_date)";
         List<ChartData> chartDataList = new ArrayList<>();
 
         try (PreparedStatement prepare = connect.prepareStatement(sql);
              ResultSet result = prepare.executeQuery()) {
 
             while (result.next()) {
-                String date = result.getString("date");
-                double averageSalary = result.getDouble("AVG(salary)");
+                String month = result.getString("month");
+                int employeeCount = result.getInt("employee_count");
 
-                ChartData chartData = new ChartData(date, averageSalary);
+                ChartData chartData = new ChartData(month, employeeCount);
                 chartDataList.add(chartData);
             }
         } catch (Exception e) {
@@ -38,13 +38,14 @@ public class HomeRepository {
 
         return chartDataList;
     }
+
     public static class HelpRepository {
         public void saveQuestion(String question) throws SQLException {
             // Your code to save the question to the database
             // Use the appropriate database operations or framework, e.g., JDBC, JPA, etc.
             // Example code using JDBC:
-            try (Connection connection = ConnectionUtil.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("INSERT INTO questions (question) VALUES (?)")) {
+            try (
+                 PreparedStatement statement = connect.prepareStatement("INSERT INTO questions (question) VALUES (?)")) {
                 statement.setString(1, question);
                 statement.executeUpdate();
             }
@@ -53,7 +54,7 @@ public class HomeRepository {
 
 
     public int homeTotalEmployees() throws SQLException {
-        String sql = "SELECT COUNT(id) FROM employee";
+        String sql = "SELECT COUNT(id) FROM employees";
 
         int countData = 0;
         try {
