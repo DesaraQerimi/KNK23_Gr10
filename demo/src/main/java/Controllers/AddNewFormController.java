@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -39,6 +38,13 @@ public class AddNewFormController extends BaseController implements Initializabl
 
     @FXML
     private Button handelAddBtn;
+    private Locale currentlocale;
+
+    @FXML
+    private Button en_bttn;
+
+    @FXML
+    private Button al_bttn;
 
     Alert alert = new Alert(Alert.AlertType.ERROR,"");
 
@@ -62,33 +68,44 @@ public class AddNewFormController extends BaseController implements Initializabl
     //translation to english
     @Override
     void translateEN() {
-        Locale currentLocale = new Locale("en");
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("en");
+        Locale currentLocale = builder.build();
 
-        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en.properties", currentLocale);
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en", currentLocale);
 
-        addnewName.setText(translate.getString("addNewForm.name"));
-        addnewSurname.setText(translate.getString("addNewForm.surname"));
-        addnewEmail.setText(translate.getString("addNewForm.email"));
-        addnewDepartment.setText(translate.getString("addNewForm.department"));
-        addnewPhone.setText(translate.getString("addNewForm.phone"));
+        addnewName.setPromptText(translate.getString("addNewForm.name")); // Use setPromptText instead of setText
+        addnewSurname.setPromptText(translate.getString("addNewForm.surname"));
+        addnewEmail.setPromptText(translate.getString("addNewForm.email"));
+        addnewDepartment.setPromptText(translate.getString("addNewForm.department"));
+        addnewPhone.setPromptText(translate.getString("addNewForm.phone"));
         handelAddBtn.setText(translate.getString("addNewForm.addButton"));
     }
     //translation to albanian
     @Override
     void translateSQ() {
-        Locale currentLocale = new Locale("sq");
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("sq");
+        Locale currentLocale = builder.build();
 
-        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en.properties", currentLocale);
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_sq", currentLocale);
 
-        addnewName.setText(translate.getString("addNewForm.name"));
-        addnewSurname.setText(translate.getString("addNewForm.surname"));
-        addnewName.setText(translate.getString("addNewForm.email"));
-        addnewDepartment.setText(translate.getString("addNewForm.department"));
-        addnewPhone.setText(translate.getString("addNewForm.phone"));
+        addnewName.setPromptText(translate.getString("addNewForm.name")); // Use setPromptText instead of setText
+        addnewSurname.setPromptText(translate.getString("addNewForm.surname"));
+        addnewEmail.setPromptText(translate.getString("addNewForm.email"));
+        addnewDepartment.setPromptText(translate.getString("addNewForm.department"));
+        addnewPhone.setPromptText(translate.getString("addNewForm.phone"));
         handelAddBtn.setText(translate.getString("addNewForm.addButton"));
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale albanianLocale = new Locale.Builder().setLanguage("sq").build();
+        Locale.setDefault(albanianLocale);
+        translateSQ();
+        en_bttn.setOnMouseClicked(e->{translateEN();});
+        al_bttn.setOnMouseClicked(e->{translateSQ();});
+
+
         // Register event handler for Enter key press
         addnewName.setOnKeyPressed(this::handleEnterKeyPress);
         addnewSurname.setOnKeyPressed(this::handleEnterKeyPress);

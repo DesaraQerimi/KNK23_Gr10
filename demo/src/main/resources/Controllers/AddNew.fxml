@@ -16,6 +16,8 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <Button fx:id="al_bttn" layoutX="251.0" layoutY="14.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="40.0" text="AL" />
+            <Button fx:id="en_bttn" layoutX="300.0" layoutY="14.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="40.0" text="EN" />
          </children>
       </Pane>
       <TextField fx:id="addnewName" layoutX="71.0" layoutY="87.0" prefHeight="25.0" prefWidth="207.0" promptText="Name" />
@@ -23,7 +25,7 @@
       <TextField fx:id="addnewDepartment" layoutX="71.0" layoutY="159.0" prefHeight="25.0" prefWidth="207.0" promptText="Department" />
       <TextField fx:id="addnewEmail" layoutX="71.0" layoutY="201.0" prefHeight="25.0" prefWidth="207.0" promptText="Email" />
       <TextField fx:id="addnewPhone" layoutX="71.0" layoutY="241.0" prefHeight="25.0" prefWidth="207.0" promptText="Phone" />
-      <Button fx:id="handelAddBtn" layoutX="71.0" layoutY="294.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="207.0" text="Add employee" onAction="#add" />
+      <Button fx:id="handelAddBtn" layoutX="71.0" layoutY="294.0" mnemonicParsing="false" onAction="#add" prefHeight="25.0" prefWidth="207.0" text="Add employee" />
 
 
 
