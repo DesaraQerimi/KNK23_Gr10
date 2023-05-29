@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EmployeeInfoController implements Initializable {
+public class EmployeeInfoController extends BaseController implements Initializable {
 
     @FXML
     private Button empDelBtn;

@@ -4,6 +4,7 @@ import Models.ChartData;
 import Services.ConnectionUtil;
 import Services.HomeService;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +26,7 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.layout.BorderPane;
 import static javafx.application.Application.launch;
 
-public class HomeController {
+public class HomeController extends BaseController implements Initializable {
     @FXML
     private MenuBar MenuItem;
 

@@ -27,7 +27,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class EmpTabController implements Initializable {
+public class EmpTabController extends BaseController implements Initializable {
     @FXML
     private MenuItem addnewItem;
 

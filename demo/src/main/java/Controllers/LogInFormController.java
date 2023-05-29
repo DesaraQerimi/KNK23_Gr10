@@ -25,7 +25,7 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class LogInFormController implements Initializable {
+public class LogInFormController extends BaseController implements Initializable {
     @FXML
     private Button li_btn;
 

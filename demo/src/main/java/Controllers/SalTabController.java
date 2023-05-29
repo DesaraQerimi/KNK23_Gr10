@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SalTabController implements Initializable {
+public class SalTabController extends BaseController implements Initializable {
     @FXML
     private Button btnLoadData;
 
