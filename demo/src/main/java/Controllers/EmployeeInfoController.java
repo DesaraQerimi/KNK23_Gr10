@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -46,7 +47,11 @@ public class EmployeeInfoController implements Initializable {
 
     @FXML
     private Label contractStatusLabel;
+    @FXML
+    private Button en_bttn;
 
+    @FXML
+    private Button al_bttn;
     private EmployeeService employeeService;
 
     private File selectedContractFile;
@@ -194,6 +199,50 @@ private String email;
         }
     }
 
+    @Override
+    void translateEN() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("en");
+        Locale currentLocale = builder.build();
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en", currentLocale);
+
+        empFName.setText(translate.getString("textfield.empLName"));
+        empLName.setText(translate.getString("textfield.empLName"));
+        empEmail.setText(translate.getString("textfield.email"));
+        empDep.setText(translate.getString("textfield.empDep"));
+        empPhone.setText(translate.getString("textfield.empPhone"));
+        empEditBtn.setText(translate.getString("button.empEditBtn"));
+        empDelBtn.setText(translate.getString("button.empDelBtn"));
+    }
+    //translation to albanian
+    @Override
+    void translateSQ() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("sq");
+        Locale currentLocale = builder.build();
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_sq", currentLocale);
+
+        empFName.setText(translate.getString("textfield.empLName"));
+        empLName.setText(translate.getString("textfield.empLName"));
+        empEmail.setText(translate.getString("textfield.email"));
+        empDep.setText(translate.getString("textfield.empDep"));
+        empPhone.setText(translate.getString("textfield.empPhone"));
+        empEditBtn.setText(translate.getString("button.empEditBtn"));
+        empDelBtn.setText(translate.getString("button.empDelBtn"));
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale albanianLocale = new Locale.Builder().setLanguage("sq").build();
+        Locale.setDefault(albanianLocale);
+        translateSQ();
+        en_bttn.setOnMouseClicked(e -> {
+            translateEN();
+        });
+        al_bttn.setOnMouseClicked(e -> {
+            translateSQ();
+        });
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

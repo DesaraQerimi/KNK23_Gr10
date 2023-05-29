@@ -26,30 +26,72 @@ import javafx.scene.layout.BorderPane;
 import static javafx.application.Application.launch;
 
 public class HomeController {
+    @FXML
+    private MenuBar MenuItem;
 
     @FXML
-    private AreaChart<String, Double> homeChart;
+    private MenuItem aboutMenuItem;
 
     @FXML
-    private Label home_totalEmployees;
+    private Button al_bttn;
+
+    @FXML
+    private Button employeesEBtn;
+
+    @FXML
+    private Button employeesEBtn1;
+
+    @FXML
+    private Button employeesSBtn;
 
     @FXML
     private Button en_bttn;
 
     @FXML
-    private Button al_bttn;
+    private AreaChart<?, ?> homeChart;
 
+    @FXML
+    private BorderPane homePage;
+
+    @FXML
+    private Label home_totalEmployees;
+
+    @FXML
+    private Button logoutBtn;
+
+    @FXML
+    void changeWindow(ActionEvent event) {
+
+    }
+
+    @FXML
+    void changeWindowE(ActionEvent event) {
+
+    }
+
+    @FXML
+    void logOut(ActionEvent event) {
+
+    }
+    @FXML
+    private MenuItem addnewItem;
+
+    @FXML
+    private MenuItem closeItem;
+
+    @FXML
+    private Menu editMenu;
+    @FXML
+    private Menu fileMenu;
+
+    @FXML
+    private Menu helpMenu;
     @FXML
     private Label signIn;
 
     @FXML
     private Label signUp;
 
-    @FXML
-    private BorderPane homePage;
-
-    @FXML
-    private MenuItem aboutMenuItem;
 
     @FXML
     public void initialize() {
@@ -183,37 +225,72 @@ public class HomeController {
         }
     }
 
+    //translation to english
+    @Override
+    void translateEN() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("en");
+        Locale currentLocale = builder.build();
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en", currentLocale);
+
+        employeesEBtn.setText(translate.getString("button.employeesEBtn"));
+        employeesSBtn.setText(translate.getString("button.employeesSBtn"));
+        home_totalEmployees.setText(translate.getString("label.home_totalEmployees"));
+        fileMenu.setText(translate.getString("menu.fileMenu"));
+        editMenu.setText(translate.getString("menu.editMenu"));
+        helpMenu.setText(translate.getString("menu.helpMenu"));
+        closeItem.setText(translate.getString("menuItem.closeItem"));
+        addnewItem.setText(translate.getString("menuItem.addNewItem"));
+        en_bttn.setText(translate.getString("button.en_bttn"));
+        al_bttn.setText(translate.getString("button.al_bttn"));
+    }
+    //translation to albanian
+    @Override
+    void translateSQ() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("sq");
+        Locale currentLocale = builder.build();
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_sq", currentLocale);
+        employeesEBtn.setText(translate.getString("button.employeesEBtn"));
+        employeesSBtn.setText(translate.getString("button.employeesSBtn"));
+        home_totalEmployees.setText(translate.getString("label.home_totalEmployees"));
+        fileMenu.setText(translate.getString("menu.fileMenu"));
+        editMenu.setText(translate.getString("menu.editMenu"));
+        helpMenu.setText(translate.getString("menu.helpMenu"));
+        closeItem.setText(translate.getString("menuItem.closeItem"));
+        addnewItem.setText(translate.getString("menuItem.addNewItem"));
+        en_bttn.setText(translate.getString("button.en_bttn"));
+        al_bttn.setText(translate.getString("button.al_bttn"));
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale albanianLocale = new Locale.Builder().setLanguage("sq").build();
+        Locale.setDefault(albanianLocale);
+        translateSQ();
+        en_bttn.setOnMouseClicked(e->{translateEN();});
+        al_bttn.setOnMouseClicked(e->{translateSQ();});
 
 //Internationalization
-    void translateEnglish() {
-        Locale currentLocale = new Locale("en");
+//    void translateEnglish() {
+//        Locale currentLocale = new Locale("en");
+//
+//        ResourceBundle translate = ResourceBundle.getBundle("translation.content", currentLocale);
+//        signIn.setText(translate.getString("button.signIn"));
+//        signUp.setText(translate.getString("button.signUp"));
+//
+//    }
+//
+//    void translateAlbanian() {
+//        Locale currentLocale = new Locale("sq");
+//
+//        ResourceBundle translate = ResourceBundle.getBundle("Translation.content.content_en.properties", currentLocale);
+//        signIn.setText(translate.getString("button.signIn"));
+//        signUp.setText(translate.getString("button.signUp"));
+//
+//    }
 
-        ResourceBundle translate = ResourceBundle.getBundle("translation.content", currentLocale);
-        signIn.setText(translate.getString("button.signIn"));
-        signUp.setText(translate.getString("button.signUp"));
-
-    }
-
-    void translateAlbanian() {
-        Locale currentLocale = new Locale("sq");
-
-        ResourceBundle translate = ResourceBundle.getBundle("Translation.content.content_en.properties", currentLocale);
-        signIn.setText(translate.getString("button.signIn"));
-        signUp.setText(translate.getString("button.signUp"));
-
-    }
-
-    public void initialize(URL url, ResourceBundle rb) {
-        Locale.setDefault(new Locale("sq"));
-        translateAlbanian();
-        al_bttn.setOnMouseClicked(e -> {
-            translateAlbanian();
-        });
-        en_bttn.setOnMouseClicked(e -> {
-            translateEnglish();
-        });
-
-    }
 
 
     public void changeWindow(ActionEvent event) throws IOException {

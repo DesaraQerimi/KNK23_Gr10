@@ -16,7 +16,7 @@
          <top>
             <AnchorPane prefHeight="470.0" prefWidth="500.0" styleClass="other-form" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="170.0" layoutY="67.0" prefHeight="69.0" prefWidth="159.0" text="Welcome!">
+                  <Label fx:id="welcome" layoutX="170.0" layoutY="67.0" prefHeight="69.0" prefWidth="159.0" text="Welcome!">
                      <font>
                         <Font size="36.0" />
                      </font>

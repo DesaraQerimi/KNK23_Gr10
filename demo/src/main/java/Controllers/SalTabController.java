@@ -21,10 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -97,6 +94,11 @@ public class SalTabController implements Initializable {
 
     @FXML
     private TextField txtVKoef;
+    @FXML
+    private Button en_bttn;
+
+    @FXML
+    private Button al_bttn;
 
     private ObservableList<GradaService> data;
     private ObservableList<RoliService> data1;
@@ -317,8 +319,7 @@ public class SalTabController implements Initializable {
             }
         };
     }
-
-    private boolean validateNumberInput(String input) {
+        private boolean validateNumberInput(String input) {
         return input.matches("\\d");
     }
 
@@ -333,4 +334,42 @@ public class SalTabController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    //translation to english
+    @Override
+    void translateEN() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("en");
+        Locale currentLocale = builder.build();
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en", currentLocale);
+
+        gradaUpBtn.setText(translate.getString("label.gradaUpBtn"));
+        roliUpBtn.setText(translate.getString("label.roliUpBtn"));
+        colRoli_id.setText(translate.getString("tableColumn.colRoli_id"));
+        colGrada1.setText(translate.getString("tableColumn.colGrada1"));
+        colDepartamenti.setText(translate.getString("tableColumn.colDepartamenti"));
+        colTitulli.setText(translate.getString("tableColumn.colTitulli"));
+    }
+    //translation to albanian
+    @Override
+    void translateSQ() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("sq");
+        Locale currentLocale = builder.build();
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_sq", currentLocale);
+        gradaUpBtn.setText(translate.getString("label.gradaUpBtn"));
+        roliUpBtn.setText(translate.getString("label.roliUpBtn"));
+        colRoli_id.setText(translate.getString("tableColumn.colRoli_id"));
+        colGrada1.setText(translate.getString("tableColumn.colGrada1"));
+        colDepartamenti.setText(translate.getString("tableColumn.colDepartamenti"));
+        colTitulli.setText(translate.getString("tableColumn.colTitulli"));
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale albanianLocale = new Locale.Builder().setLanguage("sq").build();
+        Locale.setDefault(albanianLocale);
+        translateSQ();
+        en_bttn.setOnMouseClicked(e->{translateEN();});
+        al_bttn.setOnMouseClicked(e->{translateSQ();});
 }

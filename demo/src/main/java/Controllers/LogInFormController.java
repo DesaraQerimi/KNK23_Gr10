@@ -22,6 +22,7 @@ import Services.AdminService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LogInFormController implements Initializable {
@@ -66,6 +67,13 @@ public class LogInFormController implements Initializable {
 
     @FXML
     private Label li_errorLabel;
+    @FXML
+    private Button en_bttn;
+
+    @FXML
+    private Button al_bttn;
+    @FXML
+    private Label welcome;
 
     private AdminService AdminService;
 
@@ -79,8 +87,46 @@ public class LogInFormController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
+    //translation to english
+    @Override
+    void translateEN() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("en");
+        Locale currentLocale = builder.build();
 
-    @FXML
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en", currentLocale);
+
+        welcome.setText(translate.getString("label.welcome"));
+        li_username.setText(translate.getString("textfield.li_username"));
+        li_password.setText(translate.getString("passwordfield.li_password"));
+        li_createaccbtn.setText(translate.getString("button.li_createaccbtn"));
+        li_btn.setText(translate.getString("button.li_btn"));
+    }
+    //translation to albanian
+    @Override
+    void translateSQ() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("sq");
+        Locale currentLocale = builder.build();
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_sq", currentLocale);
+
+        welcome.setText(translate.getString("label.welcome"));
+        li_username.setText(translate.getString("textfield.li_username"));
+        li_password.setText(translate.getString("passwordfield.li_password"));
+        li_createaccbtn.setText(translate.getString("button.li_createaccbtn"));
+        li_btn.setText(translate.getString("button.li_btn"));
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale albanianLocale = new Locale.Builder().setLanguage("sq").build();
+        Locale.setDefault(albanianLocale);
+        translateSQ();
+        en_bttn.setOnMouseClicked(e->{translateEN();});
+        al_bttn.setOnMouseClicked(e->{translateSQ();});
+
+
+        @FXML
     private void handleLoginButtonAction(ActionEvent event) {
         String username = li_username.getText();
         String password = li_password.getText();

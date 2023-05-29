@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -80,6 +81,11 @@ public class EmpTabController implements Initializable {
 
     @FXML
     private TableView<EmployeeService> tableEmp;
+    @FXML
+    private Button en_bttn;
+
+    @FXML
+    private Button al_bttn;
 
     private ObservableList<EmployeeService> data;
 
@@ -218,8 +224,62 @@ public class EmpTabController implements Initializable {
             stage.show();
         }
     }
+    @Override
+    void translateEN() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("en");
+        Locale currentLocale = builder.build();
 
-    Stage stage;
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_en", currentLocale);
+
+        employeesEBtn.setText(translate.getString("button.employeesEBtn"));
+        employeesSBtn.setText(translate.getString("button.employeesSBtn"));
+        fileMenu.setText(translate.getString("menu.fileMenu"));
+        editMenu.setText(translate.getString("menu.editMenu"));
+        helpMenu.setText(translate.getString("menu.helpMenu"));
+        closeItem.setText(translate.getString("menuItem.closeItem"));
+        addnewItem.setText(translate.getString("menuItem.addNewItem"));
+        filter.setText(translate.getString("textField.filter"));
+        btnFilter.setText(translate.getString("button.btnFilter"));
+        colName.setText(translate.getString("tableColumn.colName"));
+        colSurname.setText(translate.getString("tableColumn.colSurname"));
+        colDept.setText(translate.getString("tableColumn.colDept"));
+        colEmail.setText(translate.getString("tableColumn.colEmail"));
+        colPhone.setText(translate.getString("tableColumn.colPhone"));
+    }
+    //translation to albanian
+    @Override
+    void translateSQ() {
+        Locale.Builder builder = new Locale.Builder();
+        builder.setLanguage("sq");
+        Locale currentLocale = builder.build();
+
+        ResourceBundle translate = ResourceBundle.getBundle("translation.content_sq", currentLocale);
+        employeesEBtn.setText(translate.getString("button.employeesEBtn"));
+        employeesSBtn.setText(translate.getString("button.employeesSBtn"));
+        fileMenu.setText(translate.getString("menu.fileMenu"));
+        editMenu.setText(translate.getString("menu.editMenu"));
+        helpMenu.setText(translate.getString("menu.helpMenu"));
+        closeItem.setText(translate.getString("menuItem.closeItem"));
+        addnewItem.setText(translate.getString("menuItem.addNewItem"));
+        filter.setText(translate.getString("textField.filter"));
+        btnFilter.setText(translate.getString("button.btnFilter"));
+        colName.setText(translate.getString("tableColumn.colName"));
+        colSurname.setText(translate.getString("tableColumn.colSurname"));
+        colDept.setText(translate.getString("tableColumn.colDept"));
+        colEmail.setText(translate.getString("tableColumn.colEmail"));
+        colPhone.setText(translate.getString("tableColumn.colPhone"));
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale albanianLocale = new Locale.Builder().setLanguage("sq").build();
+        Locale.setDefault(albanianLocale);
+        translateSQ();
+        en_bttn.setOnMouseClicked(e->{translateEN();});
+        al_bttn.setOnMouseClicked(e->{translateSQ();});
+
+
+        Stage stage;
 
     public void logOut(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
