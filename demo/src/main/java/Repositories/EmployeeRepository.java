@@ -68,26 +68,26 @@ public class EmployeeRepository {
         }
     }
 
-    public void updateEmployee(Employee employee) throws SQLException {
-        String sql = "UPDATE employees SET name = ?, lastname = ?, department = ?, email = ?, phone = ? WHERE id = ?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, employee.getFirstName());
-            statement.setString(2, employee.getLastName());
-            statement.setString(3, employee.getDepartment());
-            statement.setString(4, employee.getEmail());
-            statement.setString(5, employee.getPhone());
-            statement.setInt(6, employee.getId());
-            statement.executeUpdate();
-        }
-    }
-
-    public void deleteEmployee(int id) throws SQLException {
-        String sql = "DELETE FROM employees WHERE id = ?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, id);
-            statement.executeUpdate();
-        }
-    }
+//    public void updateEmployee(Employee employee) throws SQLException {
+//        String sql = "UPDATE employees SET name = ?, lastname = ?, department = ?, email = ?, phone = ? WHERE id = ?";
+//        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+//            statement.setString(1, employee.getFirstName());
+//            statement.setString(2, employee.getLastName());
+//            statement.setString(3, employee.getDepartment());
+//            statement.setString(4, employee.getEmail());
+//            statement.setString(5, employee.getPhone());
+//            statement.setInt(6, employee.getId());
+//            statement.executeUpdate();
+//        }
+//    }
+//
+//    public void deleteEmployee(int id) throws SQLException {
+//        String sql = "DELETE FROM employees WHERE id = ?";
+//        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+//            statement.setInt(1, id);
+//            statement.executeUpdate();
+//        }
+//    }
 
 //    public Employee getByName(String name) throws SQLException {
 //        String sql = "SELECT * FROM employees WHERE name = ?";

@@ -3,7 +3,7 @@ package Models;
 import java.util.Date;
 
 public class Employee {
-        private static int id;
+        public static int id;
         private String firstName;
         private String lastName;
         private String department;

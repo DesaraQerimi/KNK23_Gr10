@@ -113,14 +113,14 @@ public class EmployeeService {
     public static void addEmployee(Employee employee) throws SQLException {
         EmployeeRepository.addEmployee(employee);
     }
-
-    public void updateEmployee(Employee employee) throws SQLException {
-        employeeRepository.updateEmployee(employee);
-    }
-
-    public void deleteEmployee(int id) throws SQLException {
-        employeeRepository.deleteEmployee(id);
-    }
+//
+//    public void updateEmployee(Employee employee) throws SQLException {
+//        employeeRepository.updateEmployee(employee);
+//    }
+//
+//    public void deleteEmployee(int id) throws SQLException {
+//        employeeRepository.deleteEmployee(id);
+//    }
 
 //    public Employee getEmployeeById(int id) throws SQLException {
 //        Connection conn = null;

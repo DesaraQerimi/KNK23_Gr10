@@ -63,8 +63,51 @@ public class EmployeeInfoController implements Initializable {
         if (selectedFile != null) {
             // File selected, store the reference
             selectedContractFile = selectedFile;
+
+            // Get the file name
+            String fileName = selectedContractFile.getName();
+
+            // Update the contract column in the database with the file name
+            try {
+                Connection conn = ConnectionUtil.getConnection();
+                PreparedStatement stmt = conn.prepareStatement("UPDATE employees SET contract = ? WHERE email = ?");
+                stmt.setString(1, fileName);
+                stmt.setString(2, email);
+                stmt.executeUpdate();
+
+                // Update the label text
+                contractStatusLabel.setText("Ky employee ka kontratë pune.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    @FXML
+    private void initializeContractStatusLabel() {
+        try {
+            // Retrieve the employee's contract value from the database using their email
+            Connection conn = ConnectionUtil.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT contract FROM employees WHERE email = ?");
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Get the contract value from the result set
+                String contractValue = rs.getString("contract");
+
+                if (contractValue != null && !contractValue.isEmpty()) {
+                    // If the contract value is not empty, set the label text
+                    contractStatusLabel.setText("Ky employee ka kontratë pune");
+                }
+            }
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void setEmployee(EmployeeService employee) {
         this.employeeService = employee;
@@ -78,6 +121,7 @@ public class EmployeeInfoController implements Initializable {
 
         email = empEmail.getText();
 
+        initializeContractStatusLabel();
     }
 private String email;
     @FXML
