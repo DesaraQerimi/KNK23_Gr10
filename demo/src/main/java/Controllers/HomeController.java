@@ -1,5 +1,4 @@
 package Controllers;
-
 import javafx.application.Application;
 import Models.ChartData;
 import Services.ConnectionUtil;
@@ -58,7 +57,7 @@ public class HomeController {
             // Initialize HomeService
             HomeService homeService = new HomeService();
 
-            // Set total employees label
+            // Set the total employees label
             int totalEmployees = homeService.homeTotalEmployees();
             home_totalEmployees.setText(String.valueOf(totalEmployees));
 
@@ -108,8 +107,6 @@ public class HomeController {
 
    //employees
     HomeService homeService = new HomeService();
-
-
 
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();
@@ -187,7 +184,7 @@ public class HomeController {
     }
 
 
-
+//Internationalization
     void translateEnglish() {
         Locale currentLocale = new Locale("en");
 
@@ -200,7 +197,7 @@ public class HomeController {
     void translateAlbanian() {
         Locale currentLocale = new Locale("sq");
 
-        ResourceBundle translate = ResourceBundle.getBundle("translation.content", currentLocale);
+        ResourceBundle translate = ResourceBundle.getBundle("Translation.content.content_en.properties", currentLocale);
         signIn.setText(translate.getString("button.signIn"));
         signUp.setText(translate.getString("button.signUp"));
 
@@ -248,7 +245,7 @@ public class HomeController {
             Stage currentStage = (Stage) homePage.getScene().getWindow();
             currentStage.close();
 
-            // Open the login window
+            // Opens the login window
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("LogIn.fxml"));
                 Parent root = loader.load();
